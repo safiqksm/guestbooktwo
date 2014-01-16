@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{postBacking.init()}" />
+    </f:metadata>
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Guestbook (jsf)</title>
+
+    </h:head>
+    <h:body>
+        <h1>Guestbook (jsf)</h1>
+        <p><code>index.xhtml</code> backed by 
+            <code>PostBacking.java</code> bean</p>
+        <p><h:outputLink value="#{request.contextPath}/index.html">html</h:outputLink>
+            | <h:outputLink value="#{request.contextPath}/PostServlet">jsp</h:outputLink>
+            | <b>jsf</b></p>
+
+        <h:form>
+            <p>
+                <h:outputLabel value="Author:" for="author" /><br />
+                <h:inputText id="author" value="#{postBacking.author}" />
+            </p>
+            <p>
+                <h:outputLabel value="Message:" for="message" /><br />
+                <h:inputTextarea id="message" value="#{postBacking.message}" />
+            </p>
+            <p>
+                <h:commandButton action="#{postBacking.create()}"
+                                 value="Create post" />
+            </p>
+
+            <hr />
+
+            <p>
+                <h:outputLabel value="Word:" for="word" /><br />
+                <h:inputText id="word" value="#{postBacking.word}" />
+            </p>
+            <p>
+                <h:commandButton action="#{postBacking.deleteByWord()}"
+                                 value="Delete posts containing word" />
+            </p>
+
+            <hr />
+
+            <h:dataTable value="#{postBacking.posts}" var="post" border="1">
+                <h:column>
+                    <f:facet name="header">Author</f:facet>
+                    <h:outputText value="#{post.author}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Message</f:facet>
+                    <h:outputText value="#{post.message}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandButton action="#{postBacking.delete(post.id)}"
+                                     value="Delete post" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>

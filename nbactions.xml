@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <action>
+        <actionName>CUSTOM-package tomee:run</actionName>
+        <displayName>package tomee:run</displayName>
+        <goals>
+            <goal>package</goal>
+            <goal>tomee:run</goal>
+        </goals>
+    </action>
+</actions>
