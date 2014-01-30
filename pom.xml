@@ -101,7 +101,10 @@
         <profile>
             <id>openjpa</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>jpa</name>
+                    <value>openjpa</value>
+                </property>
             </activation>
             <dependencies>
                 <dependency>
@@ -236,7 +239,10 @@
         <profile>
             <id>eclipselink</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>jpa</name>
+                    <value>eclipselink</value>
+                </property>
             </activation>
             <dependencies>
                 <dependency>
