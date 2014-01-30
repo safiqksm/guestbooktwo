@@ -1,5 +1,5 @@
 language: java
 env:
   - MAVEN_OPTS="-Djpa=openjpa"
-#  - MAVEN_OPTS="-Djpa=eclipselink"
+  - MAVEN_OPTS="-Djpa=eclipselink"
 #  - MAVEN_OPTS="-Djpa=hibernate"
