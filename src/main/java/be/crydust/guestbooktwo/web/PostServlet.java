@@ -1,11 +1,18 @@
 package be.crydust.guestbooktwo.web;
 
+import be.crydust.guestbooktwo.entities.Post;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 /**
  *
@@ -17,8 +24,7 @@ public class PostServlet extends HttpServlet {
     PostBacking postBacking;
 
     void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("author", postBacking.getAuthor());
-        request.setAttribute("message", postBacking.getMessage());
+        request.setAttribute("currentPost", postBacking.getCurrentPost());
         request.setAttribute("word", postBacking.getWord());
         request.setAttribute("posts", postBacking.getPosts());
         request
@@ -34,16 +40,29 @@ public class PostServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        postBacking.setAuthor((String) request.getParameter("author"));
-        postBacking.setMessage((String) request.getParameter("message"));
-        postBacking.setWord((String) request.getParameter("word"));
+        postBacking.setCurrentPost(new Post(
+                emptyToNull(request.getParameter("author")),
+                emptyToNull(request.getParameter("message"))));
+        postBacking.setWord(
+                emptyToNull(request.getParameter("word")));
         postBacking.init();
-        performAction((String) request.getParameter("button"));
+        try {
+            performAction((String) request.getParameter("button"));
+        } catch (EJBException e) {
+            request.setAttribute("validationMessages", convertToValidationMessages(e));
+        }
         doRequest(request, response);
     }
 
     // Helpers
-    Long parseId(String actionAndId) {
+    static String emptyToNull(String s) {
+        if (s != null && s.isEmpty()) {
+            return null;
+        }
+        return s;
+    }
+
+    static Long parseId(String actionAndId) {
         if (actionAndId != null && actionAndId.contains(".")) {
             try {
                 return Long.valueOf(actionAndId.substring(actionAndId.indexOf(".") + 1), 10);
@@ -54,7 +73,7 @@ public class PostServlet extends HttpServlet {
         return null;
     }
 
-    String parseAction(String actionAndId) {
+    static String parseAction(String actionAndId) {
         if (actionAndId != null && actionAndId.contains(".")) {
             return actionAndId.substring(0, actionAndId.indexOf("."));
         }
@@ -75,5 +94,26 @@ public class PostServlet extends HttpServlet {
             default:
                 throw new IllegalArgumentException("unknown action");
         }
+    }
+
+    static List<String> convertToValidationMessages(EJBException e) {
+        List<String> validationMessages = new ArrayList<>();
+        Throwable cause = e.getCause();
+        if (cause instanceof ConstraintViolationException) {
+            Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) cause).getConstraintViolations();
+            for (ConstraintViolation<?> violation : constraintViolations) {
+                String violationPath = violation.getPropertyPath().toString();
+                String violationMessage = violation.getMessage();
+                if ("".equals(violationPath)) {
+                    validationMessages.add(violationMessage);
+                } else {
+                    validationMessages.add(String.format(
+                            "%s: %s", violationPath, violationMessage));
+                }
+            }
+        } else if (cause != null) {
+            validationMessages.add(cause.getMessage());
+        }
+        return validationMessages;
     }
 }

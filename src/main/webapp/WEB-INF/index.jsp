@@ -19,13 +19,20 @@
 
         <c:url var="formAction" value="/PostServlet" />
         <form action="${fn:escapeXml(formAction)}" method="post">
+            <c:if test="${not empty validationMessages}">
+                <ul>
+                    <c:forEach items="${validationMessages}" var="validationMessage">
+                        <li><c:out value="${validationMessage}" /></li>
+                    </c:forEach>
+                </ul>
+            </c:if>
             <p>
                 <label for="author">Author:</label><br />
-                <input id="author" name="author" value="${fn:escapeXml(author)}"/>
+                <input id="author" name="author" value="${fn:escapeXml(currentPost.author)}"/>
             </p>
             <p>
                 <label for="message">Message:</label><br />
-                <textarea id="message" name="message"><c:out value="${message}"/></textarea>
+                <textarea id="message" name="message"><c:out value="${currentPost.message}"/></textarea>
             </p>
             <p>
                 <button type="submit" name="button" value="create">Create post</button>
@@ -53,7 +60,7 @@
                     <tr>
                         <td><c:out value="${post.author}"/></td>
                         <td><c:out value="${post.message}"/></td>
-                        <td><button type="submit" name="button" value="delete.<c:out value="${post.id}"/>">Delete post</button></td>
+                        <td><button type="submit" name="button" value="delete.${fn:escapeXml(post.id)}">Delete post</button></td>
                     </tr>
                 </c:forEach>
             </table>

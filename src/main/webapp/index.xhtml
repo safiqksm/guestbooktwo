@@ -21,11 +21,13 @@
         <h:form>
             <p>
                 <h:outputLabel value="Author:" for="author" /><br />
-                <h:inputText id="author" value="#{postBacking.author}" />
+                <h:inputText id="author" value="#{postBacking.currentPost.author}" label="author" /><br />
+                <h:message for="author" />
             </p>
             <p>
                 <h:outputLabel value="Message:" for="message" /><br />
-                <h:inputTextarea id="message" value="#{postBacking.message}" />
+                <h:inputTextarea id="message" value="#{postBacking.currentPost.message}" label="message" /><br />
+                <h:message for="message" />
             </p>
             <p>
                 <h:commandButton action="#{postBacking.create()}"
@@ -36,7 +38,8 @@
 
             <p>
                 <h:outputLabel value="Word:" for="word" /><br />
-                <h:inputText id="word" value="#{postBacking.word}" />
+                <h:inputText id="word" value="#{postBacking.word}" label="word" /><br />
+                <h:message for="word" />
             </p>
             <p>
                 <h:commandButton action="#{postBacking.deleteByWord()}"

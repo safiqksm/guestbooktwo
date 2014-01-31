@@ -7,6 +7,8 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -17,13 +19,16 @@ import javax.inject.Named;
 public class PostBacking implements Serializable {
 
     // Properties
-    private String author = "Anonymous";
-    private String message = "Lorem ipsum expletive dolor sit amet.";
+    private Post currentPost = new Post(
+            "Anonymous",
+            "Lorem ipsum expletive dolor sit amet.");
+    @NotNull
+    @Size(min = 1)
     private String word = "expletive";
 
     // Services
     @Inject
-    PostBoundary postBoundary;
+    transient PostBoundary postBoundary;
 
     // Init
     public void init() {
@@ -32,10 +37,7 @@ public class PostBacking implements Serializable {
 
     // Actions
     public void create() {
-        Post post = new Post();
-        post.setAuthor(getAuthor());
-        post.setMessage(getMessage());
-        postBoundary.create(post);
+        postBoundary.create(getCurrentPost());
     }
 
     public void delete(Long id) {
@@ -51,20 +53,12 @@ public class PostBacking implements Serializable {
         return postBoundary.readAll();
     }
 
-    public String getAuthor() {
-        return author;
+    public Post getCurrentPost() {
+        return currentPost;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setCurrentPost(Post currentPost) {
+        this.currentPost = currentPost;
     }
 
     public String getWord() {

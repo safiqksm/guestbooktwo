@@ -1,10 +1,13 @@
 package be.crydust.guestbooktwo.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -17,9 +20,22 @@ public class Post implements Serializable {
     @GeneratedValue
     Long id;
     @Column
+    @NotNull
+    @Size(min = 2, max = 64)
     String author;
     @Column
+    @NotNull
+    @Size(min = 2, max = 256)
     String message;
+
+    public Post() {
+    }
+
+    public Post(String author, String message) {
+        this();
+        this.author = author;
+        this.message = message;
+    }
 
     public Long getId() {
         return id;
@@ -48,7 +64,7 @@ public class Post implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -61,7 +77,7 @@ public class Post implements Serializable {
             return false;
         }
         final Post other = (Post) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
