@@ -3,4 +3,5 @@ script: mvn test verify -B
 env:
   - MAVEN_OPTS="-Djpa=openjpa"
   - MAVEN_OPTS="-Djpa=eclipselink"
-  - MAVEN_OPTS="-Djpa=hibernate"
+  - MAVEN_OPTS="-Djpa=hibernate42"
+  - MAVEN_OPTS="-Djpa=hibernate43"

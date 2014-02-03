@@ -32,9 +32,6 @@ public class PostBoundaryIT {
         p.put("guestbooktwoPU.openjpa.jdbc.SynchronizeMappings", "buildSchema(ForeignKeys=true)");
         p.put("guestbooktwoPU.eclipselink.ddl-generation", "drop-and-create-tables");
         p.put("guestbooktwoPU.hibernate.hbm2ddl.auto", "create-drop");
-        p.put("guestbooktwoPU.hibernate.transaction.jta.platform", "org.apache.openejb.hibernate.OpenEJBJtaPlatform2");
-        p.put("guestbooktwoPU.hibernate.transaction.manager_lookup_class", "org.apache.openejb.hibernate.TransactionManagerLookup");
-
         ejbContainer = EJBContainer.createEJBContainer(p);
     }
 
