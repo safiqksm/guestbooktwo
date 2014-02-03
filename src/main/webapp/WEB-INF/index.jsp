@@ -51,18 +51,22 @@
             <hr />
 
             <table border="1">
-                <tr>
-                    <th>Author</th>
-                    <th>Message</th>
-                    <th>Action</th>
-                </tr>
-                <c:forEach items="${posts}" var="post">
+                <thead>
                     <tr>
-                        <td><c:out value="${post.author}"/></td>
-                        <td><c:out value="${post.message}"/></td>
-                        <td><button type="submit" name="button" value="delete.${fn:escapeXml(post.id)}">Delete post</button></td>
+                        <th>Author</th>
+                        <th>Message</th>
+                        <th>Action</th>
                     </tr>
-                </c:forEach>
+                </thead>
+                <tbody>
+                    <c:forEach items="${posts}" var="post">
+                        <tr>
+                            <td><c:out value="${post.author}"/></td>
+                            <td><c:out value="${post.message}"/></td>
+                            <td><button type="submit" name="button" value="delete.${fn:escapeXml(post.id)}">Delete post</button></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
             </table>
         </form>
     </body>
