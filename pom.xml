@@ -100,12 +100,6 @@
     <profiles>
         <profile>
             <id>openjpa</id>
-            <activation>
-                <property>
-                    <name>jpa</name>
-                    <value>openjpa</value>
-                </property>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
@@ -238,12 +232,6 @@
         </profile>
         <profile>
             <id>eclipselink</id>
-            <activation>
-                <property>
-                    <name>jpa</name>
-                    <value>eclipselink</value>
-                </property>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
@@ -373,12 +361,6 @@
         </profile>
         <profile>
             <id>hibernate43</id>
-            <activation>
-                <property>
-                    <name>jpa</name>
-                    <value>hibernate43</value>
-                </property>
-            </activation>
             <repositories>
                 <repository>
                     <id>apache.snapshots</id>
@@ -557,12 +539,6 @@
         </profile>
         <profile>
             <id>hibernate42</id>
-            <activation>
-                <property>
-                    <name>jpa</name>
-                    <value>hibernate42</value>
-                </property>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
