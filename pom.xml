@@ -383,8 +383,8 @@
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>openejb-core</artifactId>
                     <!-- TODO use 4.6.1 release -->
-                    <version>4.6.1-20140129.041046-59</version>
-                    <!--<version>4.6.1-SNAPSHOT</version>-->
+                    <!--<version>4.6.1-20140129.041046-59</version>-->
+                    <version>4.6.1-SNAPSHOT</version>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
@@ -493,8 +493,8 @@
                         <version>1.6.0</version>
                         <configuration>
                             <!-- TODO use 1.6.1 release -->
-                            <tomeeVersion>1.6.1-20140129.041338-59</tomeeVersion>
-                            <!--<tomeeVersion>1.6.1-SNAPSHOT</tomeeVersion>-->
+                            <!--<tomeeVersion>1.6.1-20140129.041338-59</tomeeVersion>-->
+                            <tomeeVersion>1.6.1-SNAPSHOT</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
                                 <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-1.7.5.jar</classpath>
