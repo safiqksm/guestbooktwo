@@ -13,6 +13,7 @@
     </appender>
     
     <logger name="be" level="ALL" />
+    <logger name="openjpa.jdbc.SQL" level="TRACE" />
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />
