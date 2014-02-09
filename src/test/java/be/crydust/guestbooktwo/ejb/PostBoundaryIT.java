@@ -31,6 +31,8 @@ public class PostBoundaryIT {
         p.put("testDB.JdbcUrl", "jdbc:h2:mem:testDB;DB_CLOSE_DELAY=-1");
         p.put("guestbooktwoPU.openjpa.jdbc.SynchronizeMappings", "buildSchema(ForeignKeys=true)");
         p.put("guestbooktwoPU.eclipselink.ddl-generation", "drop-and-create-tables");
+        p.put("guestbooktwoPU.eclipselink.logging.level", "fine");
+        p.put("guestbooktwoPU.eclipselink.logging.logger", "be.crydust.org.eclipse.persistence.logging.SLF4JLogger");
         p.put("guestbooktwoPU.hibernate.hbm2ddl.auto", "create-drop");
         ejbContainer = EJBContainer.createEJBContainer(p);
     }

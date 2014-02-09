@@ -25,7 +25,7 @@ public class Parent implements Serializable {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     List<Child> children;
 
     public Parent() {

@@ -25,7 +25,8 @@ public class FamilyBoundaryIT {
 
     @BeforeClass
     public static void startTheContainer() {
-        Properties p = new Properties();
+//        Properties p = new Properties();
+        Properties p = (Properties) System.getProperties().clone();
         p.put("testDB", "new://Resource?type=DataSource");
         p.put("testDB.JdbcDriver", "org.h2.Driver");
         p.put("testDB.JdbcUrl", "jdbc:h2:mem:testDB;DB_CLOSE_DELAY=-1");
@@ -33,6 +34,8 @@ public class FamilyBoundaryIT {
 //        p.put("guestbooktwoPU.openjpa.ConnectionFactoryProperties", "PrettyPrint=true, PrettyPrintLineLength=72, PrintParameters=True");
 //        p.put("guestbooktwoPU.openjpa.ConnectionFactoryProperties", "PrintParameters=True");
         p.put("guestbooktwoPU.eclipselink.ddl-generation", "drop-and-create-tables");
+        p.put("guestbooktwoPU.eclipselink.logging.level", "fine");
+        p.put("guestbooktwoPU.eclipselink.logging.logger", "be.crydust.org.eclipse.persistence.logging.SLF4JLogger");
         p.put("guestbooktwoPU.hibernate.hbm2ddl.auto", "create-drop");
         ejbContainer = EJBContainer.createEJBContainer(p);
     }
@@ -51,6 +54,7 @@ public class FamilyBoundaryIT {
 
     @Test
     public void testCreateFamily() {
+        
         Parent parent = new Parent("Alice");
         Child child = new Child("Bob");
         parent = cut.createParent(parent);
@@ -69,6 +73,7 @@ public class FamilyBoundaryIT {
 
     @Test
     public void testCreateFamily2() {
+        
         Parent parent = new Parent("Carol");
         Child child = new Child("Dave");
         parent.addChild(child);
@@ -94,6 +99,7 @@ public class FamilyBoundaryIT {
 
     @Test
     public void testCreateFamilyInBoundary() {
+        
         Parent parent = cut.createFamilyInBoundary("Frank", "Mallet");
         Child child = parent.getChildren().get(0);
         assertThat(parent.getId(), is(not(nullValue())));
@@ -101,7 +107,34 @@ public class FamilyBoundaryIT {
         assertThat(parent.getName(), is("Frank"));
         assertThat(child.getName(), is("Mallet"));
         assertThat(child.getParent(), is(parent));
-        // no need to retrieve alice again to get up to date children
+        assertThat(parent.getChildren().size(), is(1));
+        assertThat(parent.getChildren(), contains(child));
+    }
+    
+    @Test
+    public void testCreateOrphan() {
+        
+        Child child = new Child("Oscar");
+        cut.createChild(child);
+        assertThat(child.getParent(), is(nullValue()));
+        assertThat(child.getId(), is(not(nullValue())));
+        assertThat(child.getName(), is("Oscar"));
+        
+        Parent parent = new Parent("Peggy");
+        parent = cut.createParent(parent);
+        assertThat(parent.getId(), is(not(nullValue())));
+        assertThat(parent.getName(), is("Peggy"));
+
+        parent.addChild(child);
+        parent = cut.updateParent(parent);
+        
+        assertThat(child.getParent(), is(parent));
+        assertThat(child.getId(), is(not(nullValue())));
+        assertThat(child.getName(), is("Oscar"));
+        
+        assertThat(parent.getId(), is(not(nullValue())));
+        assertThat(parent.getName(), is("Peggy"));
+        
         assertThat(parent.getChildren().size(), is(1));
         assertThat(parent.getChildren(), contains(child));
     }

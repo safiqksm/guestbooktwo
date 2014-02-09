@@ -18,13 +18,21 @@ import javax.persistence.criteria.Root;
  */
 @Stateless
 public class FamilyBoundary {
-    
+
     @PersistenceContext
     EntityManager em;
-    
+
     public Parent createParent(Parent parent) {
         System.out.println("createParent");
         em.persist(parent);
+        em.flush();
+        em.refresh(parent);
+        return parent;
+    }
+
+    public Parent updateParent(Parent parent) {
+        System.out.println("updateParent");
+        parent = em.merge(parent);
         em.flush();
         em.refresh(parent);
         return parent;
@@ -34,20 +42,29 @@ public class FamilyBoundary {
         System.out.println("findParentById");
         return em.find(Parent.class, id);
     }
-    
+
     public Child createChild(Child child) {
         System.out.println("createChild");
-        em.persist(child);
+        Parent parent = child.getParent();
+        if (parent != null) {
+            if (!em.contains(parent)) {
+                parent = em.merge(parent);
+            }
+            parent.addChild(child);
+            em.persist(parent);
+        } else {
+            em.persist(child);
+        }
         em.flush();
         em.refresh(child);
         return child;
     }
-    
+
     public Child findChildById(Long id) {
         System.out.println("findChildById");
         return em.find(Child.class, id);
     }
-    
+
     public Child addChildToParent(Child child, Parent parent) {
         System.out.println("addChildToParent");
         child.setParent(parent);
@@ -56,7 +73,7 @@ public class FamilyBoundary {
         em.refresh(child);
         return child;
     }
-    
+
     public Parent findParentByName(String name) {
         System.out.println("findParentByName");
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -79,7 +96,8 @@ public class FamilyBoundary {
         return q.getSingleResult();
     }
 
-    public Parent createFamilyInBoundary(String parentName, String childName){
+    public Parent createFamilyInBoundary(String parentName, String childName) {
+        System.out.println("createFamilyInBoundary");
         Parent parent = new Parent(parentName);
         Child child = new Child(childName);
         parent = createParent(parent);
@@ -89,26 +107,5 @@ public class FamilyBoundary {
         em.refresh(parent);
         return parent;
     }
-    
-//    public Parent refreshParent(Parent parent) {
-//        System.out.println("refreshParent");
-//        if (em.contains(parent)) {
-//            em.refresh(parent);
-//        } else {
-//            System.out.println("!em.contains(parent)");
-//        }
-//        return parent;
-//    }
 
-//    public Parent mergeParent(Parent parent) {
-//        System.out.println("mergeParent");
-//        if (em.contains(parent)) {
-//            System.out.println("refresh");
-//            em.refresh(parent);
-//            return parent;
-//        } else {
-//            System.out.println("merge");
-//            return em.merge(parent);
-//        }
-//    }
 }
