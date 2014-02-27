@@ -329,11 +329,11 @@
                             <tomeeVersion>${tomee.version}</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
-                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-${logback.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/slf4j-api-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/jul-to-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/jcl-over-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/logback-core-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/logback-classic-${logback.version}.jar</classpath>
                             </classpaths>
                             <systemVariables>
                                 <file.encoding>UTF-8</file.encoding>
@@ -346,12 +346,12 @@
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                             </systemVariables>
                             <libs>
+                                <lib>remove:slf4j-</lib>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
                                 <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
                                 <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
                                 <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
                                 <lib>ch.qos.logback:logback-core:${logback.version}</lib>
-                                <lib>remove:slf4j-jdk14-</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -457,11 +457,11 @@
                             <tomeeVersion>${tomee.version}</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
-                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-${logback.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/slf4j-api-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/jul-to-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/jcl-over-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/logback-core-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/logback-classic-${logback.version}.jar</classpath>
                             </classpaths>
                             <systemVariables>
                                 <file.encoding>UTF-8</file.encoding>
@@ -474,21 +474,21 @@
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                             </systemVariables>
                             <libs>
+                                <lib>remove:slf4j-</lib>
+                                <lib>remove:commons-lang-2.6</lib>
+                                <lib>remove:serp-</lib>
+                                <lib>remove:openjpa-</lib>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
                                 <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
                                 <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
                                 <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
                                 <lib>ch.qos.logback:logback-core:${logback.version}</lib>
-                                <lib>remove:slf4j-jdk14-</lib>
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.jpa:${eclipselink.version}</lib>
                                 <lib>org.eclipse.persistence:javax.persistence:${javax.persistence.version}</lib>
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.asm:${eclipselink.version}</lib>
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.antlr:${eclipselink.version}</lib>
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.jpa.jpql:${eclipselink.version}</lib>
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.core:${eclipselink.version}</lib>
-                                <lib>remove:commons-lang-2.6</lib>
-                                <lib>remove:serp-</lib>
-                                <lib>remove:openjpa-</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -619,11 +619,11 @@
                             <tomeeVersion>${tomee.version}</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
-                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-${logback.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/slf4j-api-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/jul-to-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/jcl-over-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/logback-core-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/logback-classic-${logback.version}.jar</classpath>
                             </classpaths>
                             <systemVariables>
                                 <file.encoding>UTF-8</file.encoding>
@@ -636,12 +636,17 @@
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                             </systemVariables>
                             <libs>
+                                <lib>remove:slf4j-</lib>
+                                <lib>remove:bval-core</lib>
+                                <lib>remove:bval-jsr303</lib>
+                                <lib>remove:commons-lang-2.6</lib>
+                                <lib>remove:serp-</lib>
+                                <lib>remove:openjpa-</lib>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
                                 <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
                                 <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
                                 <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
                                 <lib>ch.qos.logback:logback-core:${logback.version}</lib>
-                                <lib>remove:slf4j-jdk14-</lib>
                                 <lib>org.jboss.logging:jboss-logging:${jboss-logging.version}</lib>
                                 <lib>org.javassist:javassist:${javassist.version}</lib>
                                 <lib>org.hibernate:hibernate-core:${hibernate-entitymanager.version}</lib>
@@ -654,11 +659,6 @@
                                 <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.0-api:${hibernate-jpa-2.0.version}</lib>-->
                                 <lib>org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${hibernate-jpa-2.1.version}</lib>
                                 <lib>org.jboss:jandex:${jandex.version}</lib>
-                                <lib>remove:bval-core</lib>
-                                <lib>remove:bval-jsr303</lib>
-                                <lib>remove:commons-lang-2.6</lib>
-                                <lib>remove:serp-</lib>
-                                <lib>remove:openjpa-</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -786,11 +786,11 @@
                             <tomeeVersion>${tomee.version}</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
-                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-${slf4j.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-${logback.version}.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/slf4j-api-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/jul-to-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/jcl-over-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/logback-core-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}/apache-tomee/lib/logback-classic-${logback.version}.jar</classpath>
                             </classpaths>
                             <systemVariables>
                                 <file.encoding>UTF-8</file.encoding>
@@ -803,12 +803,17 @@
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                             </systemVariables>
                             <libs>
+                                <lib>remove:slf4j-</lib>
+                                <lib>remove:bval-core</lib>
+                                <lib>remove:bval-jsr303</lib>
+                                <lib>remove:commons-lang-2.6</lib>
+                                <lib>remove:serp-</lib>
+                                <lib>remove:openjpa-</lib>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
                                 <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
                                 <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
                                 <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
                                 <lib>ch.qos.logback:logback-core:${logback.version}</lib>
-                                <lib>remove:slf4j-jdk14-</lib>
                                 <lib>org.jboss.logging:jboss-logging:${jboss-logging.version}</lib>
                                 <lib>org.javassist:javassist:${javassist.version}</lib>
                                 <lib>org.hibernate:hibernate-core:${hibernate-entitymanager.version}</lib>
@@ -821,11 +826,6 @@
                                 <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.0-api:${hibernate-jpa-2.0.version}</lib>-->
                                 <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${hibernate-jpa-2.1.version}</lib>-->
                                 <!--<lib>org.jboss:jandex:${jandex.version}</lib>-->
-                                <lib>remove:bval-core</lib>
-                                <lib>remove:bval-jsr303</lib>
-                                <lib>remove:commons-lang-2.6</lib>
-                                <lib>remove:serp-</lib>
-                                <lib>remove:openjpa-</lib>
                             </libs>
                         </configuration>
                     </plugin>
