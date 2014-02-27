@@ -104,6 +104,7 @@
                     <systemPropertyVariables>
                         <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                         <openejb.log.factory>slf4j</openejb.log.factory>
+                        <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                         <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                         <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                         <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
@@ -131,6 +132,7 @@
                             <systemPropertyVariables>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
+                                <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
@@ -341,6 +343,7 @@
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
+                                <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                             </systemVariables>
                             <libs>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
@@ -468,6 +471,7 @@
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
+                                <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                             </systemVariables>
                             <libs>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
@@ -516,18 +520,6 @@
                         <updatePolicy>never</updatePolicy>
                     </snapshots>
                 </repository>
-<!--                <repository>
-                    <id>jboss.snapshots</id>
-                    <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </snapshots>
-                </repository>-->
             </repositories>
             <dependencies>
                 <dependency>
@@ -540,10 +532,6 @@
                             <groupId>org.apache.openejb.patch</groupId>
                             <artifactId>openjpa</artifactId>
                         </exclusion>
-<!--                        <exclusion>
-                            <groupId>org.apache.geronimo.specs</groupId>
-                            <artifactId>geronimo-jpa_2.0_spec</artifactId>
-                        </exclusion>-->
                         <exclusion>
                             <artifactId>openjpa</artifactId>
                             <groupId>org.apache.openjpa</groupId>
@@ -645,6 +633,7 @@
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
+                                <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                             </systemVariables>
                             <libs>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
@@ -811,6 +800,7 @@
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
+                                <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                             </systemVariables>
                             <libs>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
