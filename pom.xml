@@ -19,7 +19,13 @@
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-            <version>2.1.10</version>
+            <version>${myfaces.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${myfaces.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -49,25 +55,25 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
+            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
-            <version>1.7.5</version>
+            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.0</version>
+            <version>${logback.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.1.0</version>
+            <version>${logback.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -96,10 +102,11 @@
                     <skipTests>${skip.unit.tests}</skipTests>
                     <workingDirectory>${project.build.directory}</workingDirectory>
                     <systemPropertyVariables>
-                        <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
+                        <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                         <openejb.log.factory>slf4j</openejb.log.factory>
                         <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
-                        <logback.configurationFile>${project.basedir}/src/test/resources/logback-test.xml</logback.configurationFile>
+                        <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
+                        <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                     </systemPropertyVariables>
                     <excludes>
                         <exclude>**/IT*.java</exclude>
@@ -122,10 +129,11 @@
                             <skipTests>${skip.integration.tests}</skipTests>
                             <workingDirectory>${project.build.directory}</workingDirectory>
                             <systemPropertyVariables>
-                                <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
+                                <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
-                                <logback.configurationFile>${project.basedir}/src/test/resources/logback-test.xml</logback.configurationFile>
+                                <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
+                                <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                             </systemPropertyVariables>
                         </configuration>
                     </execution>
@@ -138,6 +146,7 @@
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>
+                        <phase>process-test-classes</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -232,7 +241,7 @@
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>openejb-core</artifactId>
-                    <version>4.6.0</version>
+                    <version>${openejb-core.version}</version>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
@@ -248,7 +257,7 @@
                 <dependency>
                     <groupId>org.apache.openjpa</groupId>
                     <artifactId>openjpa</artifactId>
-                    <version>2.3.0</version>
+                    <version>${openjpa.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -279,14 +288,14 @@
                             <dependency>
                                 <groupId>org.apache.openjpa</groupId>
                                 <artifactId>openjpa</artifactId>
-                                <version>2.3.0</version>
+                                <version>${openjpa.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.openjpa</groupId>
                         <artifactId>openjpa-maven-plugin</artifactId>
-                        <version>2.3.0</version>
+                        <version>${openjpa.version}</version>
                         <configuration>
                             <includes>**/entities/*.class</includes>
                             <excludes>**/entities/XML*.class</excludes>
@@ -306,37 +315,39 @@
                             <dependency>
                                 <groupId>org.apache.openjpa</groupId>
                                 <artifactId>openjpa</artifactId>
-                                <version>2.3.0</version>
+                                <version>${openjpa.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.openejb.maven</groupId>
                         <artifactId>tomee-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>${tomee-plugin.version}</version>
                         <configuration>
-                            <tomeeVersion>1.6.0</tomeeVersion>
+                            <tomeeVersion>${tomee.version}</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
-                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-1.1.0.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-1.1.0.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-${logback.version}.jar</classpath>
                             </classpaths>
                             <systemVariables>
                                 <file.encoding>UTF-8</file.encoding>
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
+                                <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
+                                <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                             </systemVariables>
                             <libs>
-                                <lib>org.slf4j:slf4j-api:1.7.5</lib>
-                                <lib>org.slf4j:jcl-over-slf4j:1.7.5</lib>
-                                <lib>org.slf4j:jul-to-slf4j:1.7.5</lib>
-                                <lib>ch.qos.logback:logback-classic:1.1.0</lib>
-                                <lib>ch.qos.logback:logback-core:1.1.0</lib>
+                                <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
+                                <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
+                                <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
+                                <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
+                                <lib>ch.qos.logback:logback-core:${logback.version}</lib>
                                 <lib>remove:slf4j-jdk14-</lib>
                             </libs>
                         </configuration>
@@ -346,6 +357,11 @@
             
             <properties>
                 <javax.persistence.provider>org.apache.openjpa.persistence.PersistenceProviderImpl</javax.persistence.provider>
+                <tomee-plugin.version>1.6.0</tomee-plugin.version>
+                <tomee.version>1.6.0</tomee.version>
+                <myfaces.version>2.1.13</myfaces.version>
+                <openejb-core.version>4.6.0</openejb-core.version>
+                <openjpa.version>2.3.0</openjpa.version>
             </properties>
         </profile>
         <profile>
@@ -354,7 +370,7 @@
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>openejb-core</artifactId>
-                    <version>4.6.0</version>
+                    <version>${openejb-core.version}</version>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
@@ -370,13 +386,13 @@
                 <dependency>
                     <groupId>org.eclipse.persistence</groupId>
                     <artifactId>org.eclipse.persistence.jpa</artifactId>
-                    <version>2.5.1</version>
+                    <version>${eclipselink.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <!--<dependency>
                     <groupId>org.eclipse.persistence</groupId>
                     <artifactId>org.eclipse.persistence.oracle</artifactId>
-                    <version>2.5.1</version>
+                    <version>${eclipselink.version}</version>
                     <scope>test</scope>
                 </dependency>-->
             </dependencies>
@@ -389,7 +405,7 @@
                         <executions>
                             <execution>
                                 <id>add-test-source</id>
-                                <phase>generate-test-sources</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>add-test-source</goal>
                                 </goals>
@@ -426,45 +442,46 @@
                             <dependency>
                                 <groupId>org.eclipse.persistence</groupId>
                                 <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-                                <version>2.5.1</version>
+                                <version>${eclipselink.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.openejb.maven</groupId>
                         <artifactId>tomee-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>${tomee-plugin.version}</version>
                         <configuration>
-                            <tomeeVersion>1.6.0</tomeeVersion>
+                            <tomeeVersion>${tomee.version}</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
-                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-1.1.0.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-1.1.0.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-${logback.version}.jar</classpath>
                             </classpaths>
                             <systemVariables>
                                 <file.encoding>UTF-8</file.encoding>
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
+                                <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
-                                <javax.persistence.provider>org.eclipse.persistence.jpa.PersistenceProvider</javax.persistence.provider>
+                                <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                             </systemVariables>
                             <libs>
-                                <lib>org.slf4j:slf4j-api:1.7.5</lib>
-                                <lib>org.slf4j:jcl-over-slf4j:1.7.5</lib>
-                                <lib>org.slf4j:jul-to-slf4j:1.7.5</lib>
-                                <lib>ch.qos.logback:logback-classic:1.1.0</lib>
-                                <lib>ch.qos.logback:logback-core:1.1.0</lib>
+                                <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
+                                <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
+                                <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
+                                <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
+                                <lib>ch.qos.logback:logback-core:${logback.version}</lib>
                                 <lib>remove:slf4j-jdk14-</lib>
-                                <lib>org.eclipse.persistence:org.eclipse.persistence.jpa:2.5.1</lib>
-                                <lib>org.eclipse.persistence:javax.persistence:2.1.0</lib>
-                                <lib>org.eclipse.persistence:org.eclipse.persistence.asm:2.5.1</lib>
-                                <lib>org.eclipse.persistence:org.eclipse.persistence.antlr:2.5.1</lib>
-                                <lib>org.eclipse.persistence:org.eclipse.persistence.jpa.jpql:2.5.1</lib>
-                                <lib>org.eclipse.persistence:org.eclipse.persistence.core:2.5.1</lib>
+                                <lib>org.eclipse.persistence:org.eclipse.persistence.jpa:${eclipselink.version}</lib>
+                                <lib>org.eclipse.persistence:javax.persistence:${javax.persistence.version}</lib>
+                                <lib>org.eclipse.persistence:org.eclipse.persistence.asm:${eclipselink.version}</lib>
+                                <lib>org.eclipse.persistence:org.eclipse.persistence.antlr:${eclipselink.version}</lib>
+                                <lib>org.eclipse.persistence:org.eclipse.persistence.jpa.jpql:${eclipselink.version}</lib>
+                                <lib>org.eclipse.persistence:org.eclipse.persistence.core:${eclipselink.version}</lib>
                                 <lib>remove:commons-lang-2.6</lib>
                                 <lib>remove:serp-</lib>
                                 <lib>remove:openjpa-</lib>
@@ -476,6 +493,12 @@
             
             <properties>
                 <javax.persistence.provider>org.eclipse.persistence.jpa.PersistenceProvider</javax.persistence.provider>
+                <tomee-plugin.version>1.6.0</tomee-plugin.version>
+                <tomee.version>1.6.0</tomee.version>
+                <myfaces.version>2.1.13</myfaces.version>
+                <openejb-core.version>4.6.0</openejb-core.version>
+                <eclipselink.version>2.5.1</eclipselink.version>
+                <javax.persistence.version>2.1.0</javax.persistence.version>
             </properties>
         </profile>
         <profile>
@@ -493,20 +516,34 @@
                         <updatePolicy>never</updatePolicy>
                     </snapshots>
                 </repository>
+<!--                <repository>
+                    <id>jboss.snapshots</id>
+                    <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </repository>-->
             </repositories>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>openejb-core</artifactId>
-                    <!-- TODO use 4.6.1 release -->
-                    <!--<version>4.6.1-20140129.041046-59</version>-->
-                    <version>4.6.1-SNAPSHOT</version>
+                    <version>${openejb-core.version}</version>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
                             <groupId>org.apache.openejb.patch</groupId>
                             <artifactId>openjpa</artifactId>
                         </exclusion>
+<!--                        <exclusion>
+                            <groupId>org.apache.geronimo.specs</groupId>
+                            <artifactId>geronimo-jpa_2.0_spec</artifactId>
+                        </exclusion>-->
                         <exclusion>
                             <artifactId>openjpa</artifactId>
                             <groupId>org.apache.openjpa</groupId>
@@ -528,23 +565,27 @@
                 <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-entitymanager</artifactId>
-                    <version>${hibernate.version}</version>
+                    <version>${hibernate-entitymanager.version}</version>
                     <scope>test</scope>
                     <exclusions>
-                        <exclusion>
+                        <!--<exclusion>
                             <groupId>org.hibernate.javax.persistence</groupId>
-                            <artifactId>hibernate-jpa-2.0-api</artifactId>
-                        </exclusion>
+                            <artifactId>hibernate-jpa-2.1-api</artifactId>
+                        </exclusion>-->
                         <exclusion>
                             <groupId>org.jboss.spec.javax.transaction</groupId>
                             <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.jboss.spec.javax.transaction</groupId>
+                            <artifactId>jboss-transaction-api_1.2_spec</artifactId>
                         </exclusion>
                     </exclusions>
                 </dependency>
                 <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-validator</artifactId>
-                    <version>4.3.1.Final</version>
+                    <version>${hibernate-validator.version}</version>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
@@ -578,52 +619,52 @@
                             <dependency>
                                 <groupId>org.hibernate</groupId>
                                 <artifactId>hibernate-jpamodelgen</artifactId>
-                                <version>1.3.0.Final</version>
+                                <version>${hibernate-jpamodelgen.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.openejb.maven</groupId>
                         <artifactId>tomee-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>${tomee-plugin.version}</version>
                         <configuration>
-                            <!-- TODO use 1.6.1 release -->
-                            <!--<tomeeVersion>1.6.1-20140129.041338-59</tomeeVersion>-->
-                            <tomeeVersion>1.6.1-SNAPSHOT</tomeeVersion>
+                            <tomeeVersion>${tomee.version}</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
-                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-1.1.0.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-1.1.0.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-${logback.version}.jar</classpath>
                             </classpaths>
                             <systemVariables>
                                 <file.encoding>UTF-8</file.encoding>
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
+                                <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
-                                <javax.persistence.provider>org.hibernate.jpa.HibernatePersistenceProvider</javax.persistence.provider>
+                                <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                             </systemVariables>
                             <libs>
-                                <lib>org.slf4j:slf4j-api:1.7.5</lib>
-                                <lib>org.slf4j:jcl-over-slf4j:1.7.5</lib>
-                                <lib>org.slf4j:jul-to-slf4j:1.7.5</lib>
-                                <lib>ch.qos.logback:logback-classic:1.1.0</lib>
-                                <lib>ch.qos.logback:logback-core:1.1.0</lib>
+                                <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
+                                <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
+                                <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
+                                <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
+                                <lib>ch.qos.logback:logback-core:${logback.version}</lib>
                                 <lib>remove:slf4j-jdk14-</lib>
-                                <lib>org.jboss.logging:jboss-logging:3.1.3.GA</lib>
-                                <lib>org.jboss.logging:jboss-logging-annotations:1.2.0.Beta1</lib>
-                                <lib>org.javassist:javassist:3.18.1-GA</lib>
-                                <lib>org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final</lib>
-                                <lib>org.hibernate:hibernate-core:${hibernate.version}</lib>
-                                <lib>org.hibernate.common:hibernate-commons-annotations:4.0.4.Final</lib>
-                                <lib>dom4j:dom4j:1.6.1</lib>
-                                <lib>antlr:antlr:2.7.7</lib>
-                                <lib>org.hibernate:hibernate-entitymanager:${hibernate.version}</lib>
-                                <lib>org.jboss:jandex:1.1.0.Final</lib>
-                                <lib>org.hibernate:hibernate-validator:4.3.1.Final</lib>
+                                <lib>org.jboss.logging:jboss-logging:${jboss-logging.version}</lib>
+                                <lib>org.javassist:javassist:${javassist.version}</lib>
+                                <lib>org.hibernate:hibernate-core:${hibernate-entitymanager.version}</lib>
+                                <lib>org.hibernate.common:hibernate-commons-annotations:${hibernate-commons-annotations.version}</lib>
+                                <lib>dom4j:dom4j:${dom4j.version}</lib>
+                                <lib>antlr:antlr:${antlr.version}</lib>
+                                <lib>org.hibernate:hibernate-entitymanager:${hibernate-entitymanager.version}</lib>
+                                <lib>org.hibernate:hibernate-validator:${hibernate-validator.version}</lib>
+                                <lib>org.jboss.logging:jboss-logging-annotations:${jboss-logging-annotations.version}</lib>
+                                <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.0-api:${hibernate-jpa-2.0.version}</lib>-->
+                                <lib>org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${hibernate-jpa-2.1.version}</lib>
+                                <lib>org.jboss:jandex:${jandex.version}</lib>
                                 <lib>remove:bval-core</lib>
                                 <lib>remove:bval-jsr303</lib>
                                 <lib>remove:commons-lang-2.6</lib>
@@ -637,8 +678,23 @@
             
             <properties>
                 <javax.persistence.provider>org.hibernate.jpa.HibernatePersistenceProvider</javax.persistence.provider>
-                <hibernate.version>4.3.0.Final</hibernate.version>
-                <!--<hibernate.version>4.3.1.Final</hibernate.version>-->
+                <tomee-plugin.version>1.6.0</tomee-plugin.version>
+                <tomee.version>1.6.1-SNAPSHOT</tomee.version>
+                <myfaces.version>2.1.14</myfaces.version>
+                <openejb-core.version>4.6.1-SNAPSHOT</openejb-core.version>
+                <antlr.version>2.7.7</antlr.version>
+                <dom4j.version>1.6.1</dom4j.version>
+                <hibernate-commons-annotations.version>4.0.4.Final</hibernate-commons-annotations.version>
+                <!--<hibernate-entitymanager.version>4.3.0.Final</hibernate-entitymanager.version>-->
+                <hibernate-entitymanager.version>4.3.1.Final</hibernate-entitymanager.version>
+                <hibernate-jpa-2.0.version>000</hibernate-jpa-2.0.version>
+                <hibernate-jpa-2.1.version>1.0.0.Final</hibernate-jpa-2.1.version>
+                <hibernate-jpamodelgen.version>4.3.1.Final</hibernate-jpamodelgen.version>
+                <hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
+                <jandex.version>1.1.0.Final</jandex.version>
+                <javassist.version>3.18.1-GA</javassist.version>
+                <jboss-logging.version>3.1.3.GA</jboss-logging.version>
+                <jboss-logging-annotations.version>1.2.0.Beta1</jboss-logging-annotations.version>
             </properties>
         </profile>
         <profile>
@@ -647,7 +703,7 @@
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>openejb-core</artifactId>
-                    <version>4.6.0</version>
+                    <version>${openejb-core.version}</version>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
@@ -675,7 +731,7 @@
                 <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-entitymanager</artifactId>
-                    <version>4.2.7.SP1</version>
+                    <version>${hibernate-entitymanager.version}</version>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
@@ -686,12 +742,16 @@
                             <groupId>org.jboss.spec.javax.transaction</groupId>
                             <artifactId>jboss-transaction-api_1.1_spec</artifactId>
                         </exclusion>
+                        <exclusion>
+                            <groupId>org.jboss.spec.javax.transaction</groupId>
+                            <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+                        </exclusion>
                     </exclusions>
                 </dependency>
                 <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-validator</artifactId>
-                    <version>4.3.1.Final</version>
+                    <version>${hibernate-validator.version}</version>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
@@ -725,47 +785,52 @@
                             <dependency>
                                 <groupId>org.hibernate</groupId>
                                 <artifactId>hibernate-jpamodelgen</artifactId>
-                                <version>1.3.0.Final</version>
+                                <version>${hibernate-jpamodelgen.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.openejb.maven</groupId>
                         <artifactId>tomee-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>${tomee-plugin.version}</version>
                         <configuration>
-                            <tomeeVersion>1.6.0</tomeeVersion>
+                            <tomeeVersion>${tomee.version}</tomeeVersion>
                             <tomeeClassifier>webprofile</tomeeClassifier>
                             <classpaths>
-                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-1.7.5.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-1.1.0.jar</classpath>
-                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-1.1.0.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\slf4j-api-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\jul-to-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\jcl-over-slf4j-${slf4j.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\logback-core-${logback.version}.jar</classpath>
+                                <classpath>${project.build.directory}\apache-tomee\lib\logback-classic-${logback.version}.jar</classpath>
                             </classpaths>
                             <systemVariables>
                                 <file.encoding>UTF-8</file.encoding>
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
+                                <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
-                                <javax.persistence.provider>org.hibernate.ejb.HibernatePersistence</javax.persistence.provider>
+                                <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                             </systemVariables>
                             <libs>
-                                <lib>org.slf4j:slf4j-api:1.7.5</lib>
-                                <lib>org.slf4j:jcl-over-slf4j:1.7.5</lib>
-                                <lib>org.slf4j:jul-to-slf4j:1.7.5</lib>
-                                <lib>ch.qos.logback:logback-classic:1.1.0</lib>
-                                <lib>ch.qos.logback:logback-core:1.1.0</lib>
+                                <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
+                                <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
+                                <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
+                                <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
+                                <lib>ch.qos.logback:logback-core:${logback.version}</lib>
                                 <lib>remove:slf4j-jdk14-</lib>
-                                <lib>org.jboss.logging:jboss-logging:3.1.0.GA</lib>
-                                <lib>org.javassist:javassist:3.18.1-GA</lib>
-                                <lib>org.hibernate:hibernate-core:4.2.7.SP1</lib>
-                                <lib>org.hibernate.common:hibernate-commons-annotations:4.0.2.Final</lib>
-                                <lib>dom4j:dom4j:1.6.1</lib>
-                                <lib>antlr:antlr:2.7.7</lib>
-                                <lib>org.hibernate:hibernate-entitymanager:4.2.7.SP1</lib>
-                                <lib>org.hibernate:hibernate-validator:4.3.1.Final</lib>
+                                <lib>org.jboss.logging:jboss-logging:${jboss-logging.version}</lib>
+                                <lib>org.javassist:javassist:${javassist.version}</lib>
+                                <lib>org.hibernate:hibernate-core:${hibernate-entitymanager.version}</lib>
+                                <lib>org.hibernate.common:hibernate-commons-annotations:${hibernate-commons-annotations.version}</lib>
+                                <lib>dom4j:dom4j:${dom4j.version}</lib>
+                                <lib>antlr:antlr:${antlr.version}</lib>
+                                <lib>org.hibernate:hibernate-entitymanager:${hibernate-entitymanager.version}</lib>
+                                <lib>org.hibernate:hibernate-validator:${hibernate-validator.version}</lib>
+                                <!--<lib>org.jboss.logging:jboss-logging-annotations:${jboss-logging-annotations.version}</lib>-->
+                                <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.0-api:${hibernate-jpa-2.0.version}</lib>-->
+                                <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${hibernate-jpa-2.1.version}</lib>-->
+                                <!--<lib>org.jboss:jandex:${jandex.version}</lib>-->
                                 <lib>remove:bval-core</lib>
                                 <lib>remove:bval-jsr303</lib>
                                 <lib>remove:commons-lang-2.6</lib>
@@ -779,6 +844,22 @@
             
             <properties>
                 <javax.persistence.provider>org.hibernate.ejb.HibernatePersistence</javax.persistence.provider>
+                <tomee-plugin.version>1.6.0</tomee-plugin.version>
+                <tomee.version>1.6.0</tomee.version>
+                <myfaces.version>2.1.13</myfaces.version>
+                <openejb-core.version>4.6.0</openejb-core.version>
+                <antlr.version>2.7.7</antlr.version>
+                <dom4j.version>1.6.1</dom4j.version>
+                <hibernate-commons-annotations.version>4.0.2.Final</hibernate-commons-annotations.version>
+                <hibernate-entitymanager.version>4.2.8.Final</hibernate-entitymanager.version>
+                <hibernate-jpa-2.0.version>1.0.1.Final</hibernate-jpa-2.0.version>
+                <hibernate-jpa-2.1.version>000</hibernate-jpa-2.1.version>
+                <hibernate-jpamodelgen.version>1.3.0.Final</hibernate-jpamodelgen.version>
+                <hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
+                <jandex.version>000</jandex.version>
+                <javassist.version>3.18.1-GA</javassist.version>
+                <jboss-logging.version>3.1.0.GA</jboss-logging.version>
+                <jboss-logging-annotations.version>000</jboss-logging-annotations.version>
             </properties>
         </profile>
     </profiles>
@@ -786,6 +867,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <slf4j.version>1.7.6</slf4j.version>
+        <logback.version>1.1.1</logback.version>
     </properties>
 
 </project>

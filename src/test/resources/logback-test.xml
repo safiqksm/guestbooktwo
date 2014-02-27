@@ -11,8 +11,8 @@
     
     <logger name="be" level="ALL" />
     <logger name="openjpa.jdbc.SQL" level="TRACE" />
-    <logger name="org.eclipse.persistence" level="DEBUG" />
-    <logger name="org.hibernate" level="TRACE" />
+    <logger name="org.eclipse.persistence.session" level="DEBUG" />
+    <logger name="org.hibernate.SQL" level="DEBUG" />
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />

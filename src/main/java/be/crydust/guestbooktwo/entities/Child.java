@@ -24,15 +24,6 @@ public class Child implements Serializable {
     private String name;
 
     @ManyToOne
-    /*
-    Adding the JoinColumn annotation fails with hibernate 4.3.1.
-    It does work with hibernate 4.3.0, so I'm leaving it in.
-org.apache.openejb.OpenEjbContainer$AssembleApplicationException: org.apache.openejb.OpenEJBException: Creating application failed: /Users/kristof/Projects/guestbooktwo/target: javax.persistence.JoinColumn.foreignKey()Ljavax/persistence/ForeignKey;
-	at org.hibernate.cfg.AnnotationBinder.bindManyToOne(AnnotationBinder.java:2881)
-	at org.hibernate.cfg.AnnotationBinder.processElementAnnotations(AnnotationBinder.java:1795)
-	at org.hibernate.cfg.AnnotationBinder.processIdPropertiesIfNotAlready(AnnotationBinder.java:963)
-    */
-    @JoinColumn
     private Parent parent;
 
     public Child() {
