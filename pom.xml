@@ -155,9 +155,6 @@
     <profiles>
         <profile>
             <id>jacoco</id>
-            <activation>
-                <jdk>!1.8</jdk>
-            </activation>
             <build>
                 <plugins>
                     <plugin>

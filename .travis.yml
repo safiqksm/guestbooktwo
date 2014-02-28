@@ -1,10 +1,17 @@
 language: java
-script: mvn -B -P ${MAVEN_PROFILE} test verify
-env:
-  - MAVEN_PROFILE=openjpa
-  - MAVEN_PROFILE=eclipselink
-  - MAVEN_PROFILE=hibernate42
-  - MAVEN_PROFILE=hibernate43
-jdk:
-  - oraclejdk7
-  - oraclejdk8
+install: mvn -Dskip.unit.tests=true -Dskip.integration.tests=true -P ${MAVEN_PROFILE} -B -V help:active-profiles clean install
+script: mvn -B -P ${MAVEN_PROFILE} help:active-profiles test verify
+matrix:
+  include:
+    - jdk: oraclejdk7
+      env:
+        - MAVEN_PROFILE=jacoco,openjpa
+        - MAVEN_PROFILE=jacoco,eclipselink
+        - MAVEN_PROFILE=jacoco,hibernate42
+        - MAVEN_PROFILE=jacoco,hibernate43
+    - jdk: oraclejdk8
+      env:
+        - MAVEN_PROFILE=openjpa
+        - MAVEN_PROFILE=eclipselink
+        - MAVEN_PROFILE=hibernate42
+        - MAVEN_PROFILE=hibernate43
