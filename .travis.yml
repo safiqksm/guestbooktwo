@@ -4,14 +4,18 @@ script: mvn -B -P ${MAVEN_PROFILE} help:active-profiles test verify
 matrix:
   include:
     - jdk: oraclejdk7
-      env:
-        - MAVEN_PROFILE=jacoco,openjpa
-        - MAVEN_PROFILE=jacoco,eclipselink
-        - MAVEN_PROFILE=jacoco,hibernate42
-        - MAVEN_PROFILE=jacoco,hibernate43
+      env: MAVEN_PROFILE=jacoco,openjpa
+    - jdk: oraclejdk7
+      env: MAVEN_PROFILE=jacoco,eclipselink
+    - jdk: oraclejdk7
+      env: MAVEN_PROFILE=jacoco,hibernate42
+    - jdk: oraclejdk7
+      env: MAVEN_PROFILE=jacoco,hibernate43
     - jdk: oraclejdk8
-      env:
-        - MAVEN_PROFILE=openjpa
-        - MAVEN_PROFILE=eclipselink
-        - MAVEN_PROFILE=hibernate42
-        - MAVEN_PROFILE=hibernate43
+      env: MAVEN_PROFILE=openjpa
+    - jdk: oraclejdk8
+      env: MAVEN_PROFILE=eclipselink
+    - jdk: oraclejdk8
+      env: MAVEN_PROFILE=hibernate42
+    - jdk: oraclejdk8
+      env: MAVEN_PROFILE=hibernate43
