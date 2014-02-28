@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.*;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -54,12 +55,13 @@ public class FamilyBoundaryIT {
 
     @Test
     public void testCreateFamily() {
-        
+        System.out.println("testCreateFamily");
         Parent parent = new Parent("Alice");
         Child child = new Child("Bob");
         parent = cut.createParent(parent);
         child.setParent(parent);
         child = cut.createChild(child);
+//        parent = child.getParent();
         assertThat(parent.getId(), is(not(nullValue())));
         assertThat(child.getId(), is(not(nullValue())));
         assertThat(parent.getName(), is("Alice"));
@@ -72,8 +74,28 @@ public class FamilyBoundaryIT {
     }
 
     @Test
+    public void testCreateFamily1() {
+        System.out.println("testCreateFamily1");
+        Parent parent = new Parent("Alice");
+        Child child = new Child("Bob");
+//        parent = cut.createParent(parent);
+        child.setParent(parent);
+        child = cut.createChild(child);
+        parent = child.getParent();
+        assertThat(parent.getId(), is(not(nullValue())));
+        assertThat(child.getId(), is(not(nullValue())));
+        assertThat(parent.getName(), is("Alice"));
+        assertThat(child.getName(), is("Bob"));
+        assertThat(child.getParent(), is(parent));
+        // retrieve Alice again to get up to date children
+//        parent = cut.findParentById(parent.getId());
+        assertThat(parent.getChildren().size(), is(1));
+        assertThat(parent.getChildren(), contains(child));
+    }
+
+    @Test
     public void testCreateFamily2() {
-        
+        System.out.println("testCreateFamily2");
         Parent parent = new Parent("Carol");
         Child child = new Child("Dave");
         parent.addChild(child);
@@ -99,7 +121,7 @@ public class FamilyBoundaryIT {
 
     @Test
     public void testCreateFamilyInBoundary() {
-        
+        System.out.println("testCreateFamilyInBoundary");
         Parent parent = cut.createFamilyInBoundary("Frank", "Mallet");
         Child child = parent.getChildren().get(0);
         assertThat(parent.getId(), is(not(nullValue())));
@@ -113,7 +135,7 @@ public class FamilyBoundaryIT {
     
     @Test
     public void testCreateOrphan() {
-        
+        System.out.println("testCreateOrphan");
         Child child = new Child("Oscar");
         cut.createChild(child);
         assertThat(child.getParent(), is(nullValue()));
@@ -135,6 +157,49 @@ public class FamilyBoundaryIT {
         assertThat(parent.getId(), is(not(nullValue())));
         assertThat(parent.getName(), is("Peggy"));
         
+        assertThat(parent.getChildren().size(), is(1));
+        assertThat(parent.getChildren(), contains(child));
+    }
+    
+    @Test
+    public void testFindByName() {
+        System.out.println("testFindByName");
+        Child child = new Child("Trent");
+        child = cut.createChild(child);
+        Parent parent = new Parent("Walter");
+        parent = cut.createParent(parent);
+        assertThat(cut.findChildByName("Trent"), is(child));
+        assertThat(cut.findParentByName("Walter"), is(parent));
+        assertThat(cut.findChildByName("Wendy"), is(nullValue()));
+        assertThat(cut.findParentByName("Wendy"), is(nullValue()));
+    }
+    
+    @Test
+    public void testFindById() {
+        System.out.println("testFindById");
+        Child child = new Child("Arthur");
+        child = cut.createChild(child);
+        Parent parent = new Parent("Merlin");
+        parent = cut.createParent(parent);
+        assertThat(cut.findChildById(child.getId()), is(child));
+        assertThat(cut.findParentById(parent.getId()), is(parent));
+        assertThat(cut.findChildById(-1L), is(nullValue()));
+        assertThat(cut.findParentById(-1L), is(nullValue()));
+    }
+    
+    @Test
+    public void testAddChildToParent() {
+        System.out.println("testAddChildToParent");
+        Child child = new Child("Paul");
+        Parent parent = new Parent("Carole");
+        parent = cut.createParent(parent);
+        child = cut.addChildToParent(child, parent);
+        parent = child.getParent();
+        assertThat(parent.getId(), is(not(nullValue())));
+        assertThat(child.getId(), is(not(nullValue())));
+        assertThat(parent.getName(), is("Carole"));
+        assertThat(child.getName(), is("Paul"));
+        assertThat(child.getParent(), is(parent));
         assertThat(parent.getChildren().size(), is(1));
         assertThat(parent.getChildren(), contains(child));
     }

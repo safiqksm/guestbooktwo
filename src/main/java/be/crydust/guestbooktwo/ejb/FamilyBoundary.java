@@ -4,6 +4,7 @@ import be.crydust.guestbooktwo.entities.Child;
 import be.crydust.guestbooktwo.entities.Child_;
 import be.crydust.guestbooktwo.entities.Parent;
 import be.crydust.guestbooktwo.entities.Parent_;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,17 +26,12 @@ public class FamilyBoundary {
     public Parent createParent(Parent parent) {
         System.out.println("createParent");
         em.persist(parent);
-        em.flush();
-        em.refresh(parent);
         return parent;
     }
 
     public Parent updateParent(Parent parent) {
         System.out.println("updateParent");
-        parent = em.merge(parent);
-        em.flush();
-        em.refresh(parent);
-        return parent;
+        return em.merge(parent);
     }
 
     public Parent findParentById(Long id) {
@@ -47,16 +43,11 @@ public class FamilyBoundary {
         System.out.println("createChild");
         Parent parent = child.getParent();
         if (parent != null) {
-            if (!em.contains(parent)) {
-                parent = em.merge(parent);
-            }
+            parent = em.merge(parent);
             parent.addChild(child);
-            em.persist(parent);
         } else {
             em.persist(child);
         }
-        em.flush();
-        em.refresh(child);
         return child;
     }
 
@@ -67,10 +58,8 @@ public class FamilyBoundary {
 
     public Child addChildToParent(Child child, Parent parent) {
         System.out.println("addChildToParent");
-        child.setParent(parent);
-        em.persist(child);
-        em.flush();
-        em.refresh(child);
+        parent = em.merge(parent);
+        parent.addChild(child);
         return child;
     }
 
@@ -82,7 +71,12 @@ public class FamilyBoundary {
         cq.select(root);
         cq.where(cb.equal(root.get(Parent_.name), name));
         TypedQuery<Parent> q = em.createQuery(cq);
-        return q.getSingleResult();
+        q.setMaxResults(1);
+        List<Parent> parents = q.getResultList();
+        if (parents.isEmpty()) {
+            return null;
+        }
+        return parents.get(0);
     }
 
     public Child findChildByName(String name) {
@@ -93,18 +87,20 @@ public class FamilyBoundary {
         cq.select(root);
         cq.where(cb.equal(root.get(Child_.name), name));
         TypedQuery<Child> q = em.createQuery(cq);
-        return q.getSingleResult();
+        q.setMaxResults(1);
+        List<Child> children = q.getResultList();
+        if (children.isEmpty()) {
+            return null;
+        }
+        return children.get(0);
     }
 
     public Parent createFamilyInBoundary(String parentName, String childName) {
         System.out.println("createFamilyInBoundary");
         Parent parent = new Parent(parentName);
         Child child = new Child(childName);
-        parent = createParent(parent);
-        child.setParent(parent);
-        createChild(child);
-        // refresh to retrieve all children
-        em.refresh(parent);
+        parent = em.merge(parent);
+        parent.addChild(child);
         return parent;
     }
 

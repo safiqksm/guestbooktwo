@@ -31,7 +31,7 @@ public class PostBoundary {
 
     public Post readById(Long id) {
         System.out.println("readById");
-        return em.getReference(Post.class, id);
+        return em.find(Post.class, id);
     }
 
     public List<Post> readAll() {
