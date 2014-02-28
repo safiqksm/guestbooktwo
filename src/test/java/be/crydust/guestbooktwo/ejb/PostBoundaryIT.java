@@ -79,4 +79,17 @@ public class PostBoundaryIT {
         assertThat(cut.deleteByWord("expletive"), is(0));
     }
 
+    @Test
+    public void testDeleteByWordWithEscapedChar() {
+        Post post1 = new Post();
+        post1.setAuthor("tester");
+        post1.setMessage("message%");
+        cut.create(post1);
+        Post post2 = new Post();
+        post2.setAuthor("tester");
+        post2.setMessage("message");
+        cut.create(post2);
+        assertThat(cut.deleteByWord("%"), is(1));
+    }
+
 }
