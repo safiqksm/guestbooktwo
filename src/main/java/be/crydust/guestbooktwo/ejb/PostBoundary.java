@@ -82,7 +82,7 @@ public class PostBoundary {
         Root<Post> root = cq.from(Post.class);
         cq.select(root);
         cq.where(cb.like(root.get(Post_.message),
-                "%" + CriteriaUtil.escapeSqlWildCards(word) + "%", '\\'));
+                "%" + CriteriaUtil.escapeSqlWildCards(word) + "%"));
         TypedQuery<Post> q = em.createQuery(cq);
         List<Post> posts = q.getResultList();
         int count = 0;
