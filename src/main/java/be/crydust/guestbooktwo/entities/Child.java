@@ -81,5 +81,4 @@ public class Child implements Serializable {
         return "Child{" + "id=" + id + ", name=" + name + '}';
     }
 
-  
 }
