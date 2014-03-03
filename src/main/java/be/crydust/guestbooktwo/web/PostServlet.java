@@ -20,6 +20,8 @@ import javax.validation.ConstraintViolationException;
  */
 public class PostServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 42L;
+
     @Inject
     PostBacking postBacking;
 
@@ -47,7 +49,7 @@ public class PostServlet extends HttpServlet {
                 emptyToNull(request.getParameter("word")));
         postBacking.init();
         try {
-            performAction((String) request.getParameter("button"));
+            performAction(request.getParameter("button"));
         } catch (EJBException e) {
             request.setAttribute("validationMessages", convertToValidationMessages(e));
         }

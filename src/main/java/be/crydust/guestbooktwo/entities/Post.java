@@ -17,6 +17,8 @@ import javax.validation.constraints.Size;
 @Entity
 public class Post implements Serializable {
 
+    private static final long serialVersionUID = 42L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     Long id;
@@ -64,24 +66,19 @@ public class Post implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.id);
-        return hash;
+        return Objects.hashCode(this.id);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
+    public boolean equals(Object object) {
+        if (object == this) {
+            return true;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
+        if (object instanceof Post) {
+            Post other = (Post) object;
+            return Objects.equals(this.id, other.id);
         }
-        final Post other = (Post) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     @Override

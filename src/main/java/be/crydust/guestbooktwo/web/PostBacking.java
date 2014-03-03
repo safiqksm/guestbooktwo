@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 @RequestScoped
 public class PostBacking implements Serializable {
 
+    private static final long serialVersionUID = 42L;
+
     // Properties
     private Post currentPost = new Post(
             "Anonymous",

@@ -1,6 +1,7 @@
 package be.crydust.guestbooktwo.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Child implements Serializable {
+
+    private static final long serialVersionUID = 42L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -58,22 +61,19 @@ public class Child implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return Objects.hashCode(this.id);
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Child)) {
-            return false;
+        if (object == this) {
+            return true;
         }
-        Child other = (Child) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
+        if (object instanceof Child) {
+            Child other = (Child) object;
+            return Objects.equals(this.id, other.id);
         }
-        return true;
+        return false;
     }
 
     @Override
