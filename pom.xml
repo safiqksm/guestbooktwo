@@ -359,12 +359,15 @@
                             <libs>
                                 <lib>remove:slf4j-</lib>
                                 <lib>remove:hsqldb-</lib>
+                                <lib>remove:myfaces-</lib>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
                                 <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
                                 <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
                                 <lib>ch.qos.logback:logback-classic:${logback.version}</lib>
                                 <lib>ch.qos.logback:logback-core:${logback.version}</lib>
                                 <lib>com.h2database:h2:${h2.version}</lib>
+                                <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
+                                <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -375,7 +378,6 @@
                 <javax.persistence.provider>org.apache.openjpa.persistence.PersistenceProviderImpl</javax.persistence.provider>
                 <tomee-plugin.version>1.6.0</tomee-plugin.version>
                 <tomee.version>1.6.0</tomee.version>
-                <myfaces.version>2.1.13</myfaces.version>
                 <openejb-core.version>4.6.0</openejb-core.version>
                 <openjpa.version>2.3.0</openjpa.version>
             </properties>
@@ -492,6 +494,7 @@
                                 <lib>remove:commons-lang-2.6</lib>
                                 <lib>remove:serp-</lib>
                                 <lib>remove:openjpa-</lib>
+                                <lib>remove:myfaces-</lib>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
                                 <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
                                 <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
@@ -504,6 +507,8 @@
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.antlr:${eclipselink.version}</lib>
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.jpa.jpql:${eclipselink.version}</lib>
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.core:${eclipselink.version}</lib>
+                                <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
+                                <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -514,7 +519,6 @@
                 <javax.persistence.provider>org.eclipse.persistence.jpa.PersistenceProvider</javax.persistence.provider>
                 <tomee-plugin.version>1.6.0</tomee-plugin.version>
                 <tomee.version>1.6.0</tomee.version>
-                <myfaces.version>2.1.13</myfaces.version>
                 <openejb-core.version>4.6.0</openejb-core.version>
                 <eclipselink.version>2.5.1</eclipselink.version>
                 <javax.persistence.version>2.1.0</javax.persistence.version>
@@ -659,6 +663,7 @@
                                 <lib>remove:commons-lang-2.6</lib>
                                 <lib>remove:serp-</lib>
                                 <lib>remove:openjpa-</lib>
+                                <lib>remove:myfaces-</lib>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
                                 <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
                                 <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
@@ -677,6 +682,8 @@
                                 <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.0-api:${hibernate-jpa-2.0.version}</lib>-->
                                 <lib>org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${hibernate-jpa-2.1.version}</lib>
                                 <lib>org.jboss:jandex:${jandex.version}</lib>
+                                <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
+                                <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -687,7 +694,6 @@
                 <javax.persistence.provider>org.hibernate.jpa.HibernatePersistenceProvider</javax.persistence.provider>
                 <tomee-plugin.version>1.6.0</tomee-plugin.version>
                 <tomee.version>1.6.1-SNAPSHOT</tomee.version>
-                <myfaces.version>2.1.14</myfaces.version>
                 <openejb-core.version>4.6.1-SNAPSHOT</openejb-core.version>
                 <antlr.version>2.7.7</antlr.version>
                 <dom4j.version>1.6.1</dom4j.version>
@@ -828,6 +834,7 @@
                                 <lib>remove:commons-lang-2.6</lib>
                                 <lib>remove:serp-</lib>
                                 <lib>remove:openjpa-</lib>
+                                <lib>remove:myfaces-</lib>
                                 <lib>org.slf4j:slf4j-api:${slf4j.version}</lib>
                                 <lib>org.slf4j:jcl-over-slf4j:${slf4j.version}</lib>
                                 <lib>org.slf4j:jul-to-slf4j:${slf4j.version}</lib>
@@ -846,6 +853,8 @@
                                 <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.0-api:${hibernate-jpa-2.0.version}</lib>-->
                                 <!--<lib>org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${hibernate-jpa-2.1.version}</lib>-->
                                 <!--<lib>org.jboss:jandex:${jandex.version}</lib>-->
+                                <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
+                                <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -856,7 +865,6 @@
                 <javax.persistence.provider>org.hibernate.ejb.HibernatePersistence</javax.persistence.provider>
                 <tomee-plugin.version>1.6.0</tomee-plugin.version>
                 <tomee.version>1.6.0</tomee.version>
-                <myfaces.version>2.1.13</myfaces.version>
                 <openejb-core.version>4.6.0</openejb-core.version>
                 <antlr.version>2.7.7</antlr.version>
                 <dom4j.version>1.6.1</dom4j.version>
@@ -880,6 +888,7 @@
         <slf4j.version>1.7.6</slf4j.version>
         <logback.version>1.1.1</logback.version>
         <h2.version>1.3.175</h2.version>
+        <myfaces.version>2.2.0</myfaces.version>
     </properties>
 
 </project>
