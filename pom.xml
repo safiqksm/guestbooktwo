@@ -29,6 +29,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>4.0</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
@@ -56,25 +61,23 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
             <version>${slf4j.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
-            <scope>test</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>${logback.version}</version>
-            <scope>test</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -109,13 +112,10 @@
                         <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                         <openejb.log.factory>slf4j</openejb.log.factory>
                         <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
-                        <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
+                        <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                         <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                         <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                     </systemPropertyVariables>
-                    <excludes>
-                        <exclude>**/IT*.java</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -137,7 +137,7 @@
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
-                                <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
+                                <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                             </systemPropertyVariables>
@@ -351,7 +351,7 @@
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
-                                <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
+                                <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
@@ -483,7 +483,7 @@
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
-                                <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
+                                <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
@@ -649,7 +649,7 @@
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
-                                <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
+                                <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
@@ -821,7 +821,7 @@
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
-                                <java.util.logging.config.file>${project.basedir}/src/main/resources/logging.properties</java.util.logging.config.file>
+                                <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
@@ -881,6 +881,18 @@
             </properties>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

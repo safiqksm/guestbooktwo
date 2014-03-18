@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <f:metadata>
         <f:event type="preRenderView" listener="#{postBacking.init()}" />
     </f:metadata>
@@ -16,9 +17,10 @@
             <code>PostBacking.java</code> bean</p>
         <p><h:outputLink value="#{request.contextPath}/index.html">html</h:outputLink>
             | <h:outputLink value="#{request.contextPath}/PostServlet">jsp</h:outputLink>
-            | <b>jsf</b></p>
+            | <b>jsf</b>
+            | <h:link outcome="/primefaces">primefaces</h:link></p>
 
-        <h:form>
+        <h:form id="form">
             <p>
                 <h:outputLabel value="Author:" for="author" /><br />
                 <h:inputText id="author" value="#{postBacking.currentPost.author}" label="author" /><br />
@@ -48,7 +50,7 @@
 
             <hr />
 
-            <h:dataTable value="#{postBacking.posts}" var="post" border="1">
+            <h:dataTable id="dataTable" value="#{postBacking.posts}" var="post">
                 <h:column>
                     <f:facet name="header">Author</f:facet>
                     <h:outputText value="#{post.author}" />
@@ -63,6 +65,21 @@
                                      value="Delete post" />
                 </h:column>
             </h:dataTable>
+
+            <hr />
+
+            <ul>
+                <ui:repeat value="#{familyBacking.parents}" var="parent">
+                    <li>Parent: #{parent.name}
+                        <ul>
+                            <ui:repeat value="#{parent.children}" var="child">
+                                <li>Child: #{child.name}</li>
+                            </ui:repeat>
+                        </ul>
+                    </li>
+                </ui:repeat>
+            </ul>
+
         </h:form>
     </h:body>
 </html>

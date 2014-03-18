@@ -24,11 +24,14 @@ public class PostServlet extends HttpServlet {
 
     @Inject
     PostBacking postBacking;
+    @Inject
+    FamilyBacking familyBacking;
 
     void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("currentPost", postBacking.getCurrentPost());
         request.setAttribute("word", postBacking.getWord());
         request.setAttribute("posts", postBacking.getPosts());
+        request.setAttribute("parents", familyBacking.getParents());
         request
                 .getRequestDispatcher("/WEB-INF/index.jsp")
                 .forward(request, response);

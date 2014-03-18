@@ -10,6 +10,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,11 +20,13 @@ import javax.persistence.criteria.Root;
 @Stateless
 public class PostBoundary {
 
+    private static final Logger log = LoggerFactory.getLogger(PostBoundary.class);
+
     @PersistenceContext
     EntityManager em;
 
     public Post create(Post post) {
-        System.out.println("create");
+        log.trace("create");
         em.persist(post);
         em.flush();
         em.refresh(post);
@@ -30,12 +34,12 @@ public class PostBoundary {
     }
 
     public Post readById(Long id) {
-        System.out.println("readById");
+        log.trace("readById");
         return em.find(Post.class, id);
     }
 
     public List<Post> readAll() {
-        System.out.println("readAll");
+        log.trace("readAll");
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Post> cq = cb.createQuery(Post.class);
         Root<Post> root = cq.from(Post.class);
@@ -49,17 +53,17 @@ public class PostBoundary {
     }
 
     public Post update(Post post) {
-        System.out.println("update");
+        log.trace("update");
         return em.merge(post);
     }
 
     public void delete(Post post) {
-        System.out.println("delete");
+        log.trace("delete");
         em.remove(post);
     }
 
     public void deleteById(Long id) {
-        System.out.println("deleteById");
+        log.trace("deleteById");
         Post post = em.getReference(Post.class, id);
         if (post != null) {
             em.remove(post);
@@ -73,7 +77,7 @@ public class PostBoundary {
      * @return number of deleted posts
      */
     public int deleteByWord(String word) {
-        System.out.println("deleteByWord");
+        log.trace("deleteByWord");
         if (word == null || word.isEmpty()) {
             throw new IllegalArgumentException("word shouldn't be empty");
         }

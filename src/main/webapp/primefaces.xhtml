@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{postBacking.init()}" />
+    </f:metadata>
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Guestbook (primefaces)</title>
+            <h:outputStylesheet library="default" name="css/primefaces.css" />
+    </h:head>
+    <h:body>
+
+        <h1>Guestbook (primefaces)</h1>
+        <p><code>primefaces.xhtml</code> backed by 
+            <code>PostBacking.java</code> bean</p>
+        <p><h:outputLink value="#{request.contextPath}/index.html">html</h:outputLink>
+            | <h:outputLink value="#{request.contextPath}/PostServlet">jsp</h:outputLink>
+            | <h:link outcome="/index">jsf</h:link>
+            | <b>primefaces</b></p>
+
+        <h:form id="form">
+            <p>
+                <p:outputLabel value="Author:" for="author" /><br />
+                <p:inputText id="author" value="#{postBacking.currentPost.author}" label="author" /><br />
+                <p:message for="author" />
+            </p>
+            <p>
+                <p:outputLabel value="Message:" for="message" /><br />
+                <p:inputTextarea id="message" value="#{postBacking.currentPost.message}" label="message" /><br />
+                <p:message for="message" />
+            </p>
+            <p>
+                <p:commandButton action="#{postBacking.create()}"
+                                 value="Create post"
+                                 update="@form" />
+            </p>
+
+            <hr />
+
+            <p>
+                <p:outputLabel value="Word:" for="word" /><br />
+                <p:inputText id="word" value="#{postBacking.word}" label="word" /><br />
+                <p:message for="word" />
+            </p>
+            <p>
+                <p:commandButton action="#{postBacking.deleteByWord()}"
+                                 value="Delete posts containing word"
+                                 update="@form" />
+            </p>
+
+            <hr />
+
+            <p:dataTable id="dataTable" value="#{postBacking.posts}" var="post">
+                <p:column>
+                    <f:facet name="header">Author</f:facet>
+                    <h:outputText value="#{post.author}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Message</f:facet>
+                    <h:outputText value="#{post.message}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Action</f:facet>
+                    <p:commandButton action="#{postBacking.delete(post.id)}"
+                                     value="Delete post"
+                                     update="dataTable" />
+                </p:column>
+            </p:dataTable>
+
+            <hr />
+
+            <p:tree value="#{familyBacking.treeRoot}" var="node" id="tree">
+                <p:treeNode id="treeNodeP" type="parent">
+                    <h:outputText value="Parent: #{node.name}" />
+                </p:treeNode>
+                <p:treeNode id="treeNodeC" type="child">
+                    <h:outputText value="Child: #{node.name}" />
+                </p:treeNode>
+            </p:tree>
+
+        </h:form>
+    </h:body>
+</html>

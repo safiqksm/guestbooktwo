@@ -13,9 +13,11 @@
             <code>PostServlet.java</code> servlet</p>
             <c:url var="htmlHref" value="/index.html" />
             <c:url var="jsfHref" value="/index.xhtml" />
+            <c:url var="primefacesHref" value="/primefaces.xhtml" />
         <p><a href="${fn:escapeXml(htmlHref)}">html</a>
             | <b>jsp</b>
-            | <a href="${fn:escapeXml(jsfHref)}">jsf</a></p>
+            | <a href="${fn:escapeXml(jsfHref)}">jsf</a>
+            | <a href="${fn:escapeXml(primefacesHref)}">primefaces</a></p>
 
         <c:url var="formAction" value="/PostServlet" />
         <form action="${fn:escapeXml(formAction)}" method="post">
@@ -50,7 +52,7 @@
 
             <hr />
 
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Author</th>
@@ -68,6 +70,21 @@
                     </c:forEach>
                 </tbody>
             </table>
+
+            <hr />
+
+            <ul>
+                <c:forEach items="${parents}" var="parent">
+                    <li>Parent: <c:out value="${parent.name}" />
+                        <ul>
+                            <c:forEach items="${parent.children}" var="child">
+                                <li>Child: <c:out value="${child.name}" /></li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </c:forEach>
+            </ul>
+
         </form>
     </body>
 </html>

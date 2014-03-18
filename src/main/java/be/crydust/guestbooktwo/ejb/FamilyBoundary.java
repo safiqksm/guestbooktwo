@@ -12,6 +12,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -20,27 +22,29 @@ import javax.persistence.criteria.Root;
 @Stateless
 public class FamilyBoundary {
 
+    private static final Logger log = LoggerFactory.getLogger(FamilyBoundary.class);
+    
     @PersistenceContext
     EntityManager em;
 
     public Parent createParent(Parent parent) {
-        System.out.println("createParent");
+        log.trace("createParent");
         em.persist(parent);
         return parent;
     }
 
     public Parent updateParent(Parent parent) {
-        System.out.println("updateParent");
+        log.trace("updateParent");
         return em.merge(parent);
     }
 
     public Parent findParentById(Long id) {
-        System.out.println("findParentById");
+        log.trace("findParentById");
         return em.find(Parent.class, id);
     }
 
     public Child createChild(Child child) {
-        System.out.println("createChild");
+        log.trace("createChild");
         Parent parent = child.getParent();
         if (parent != null) {
             parent = em.merge(parent);
@@ -52,19 +56,19 @@ public class FamilyBoundary {
     }
 
     public Child findChildById(Long id) {
-        System.out.println("findChildById");
+        log.trace("findChildById");
         return em.find(Child.class, id);
     }
 
     public Child addChildToParent(Child child, Parent parent) {
-        System.out.println("addChildToParent");
+        log.trace("addChildToParent");
         parent = em.merge(parent);
         parent.addChild(child);
         return child;
     }
 
     public Parent findParentByName(String name) {
-        System.out.println("findParentByName");
+        log.trace("findParentByName");
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Parent> cq = cb.createQuery(Parent.class);
         Root<Parent> root = cq.from(Parent.class);
@@ -80,7 +84,7 @@ public class FamilyBoundary {
     }
 
     public Child findChildByName(String name) {
-        System.out.println("findChildByName");
+        log.trace("findChildByName");
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Child> cq = cb.createQuery(Child.class);
         Root<Child> root = cq.from(Child.class);
@@ -96,12 +100,31 @@ public class FamilyBoundary {
     }
 
     public Parent createFamilyInBoundary(String parentName, String childName) {
-        System.out.println("createFamilyInBoundary");
+        log.trace("createFamilyInBoundary");
         Parent parent = new Parent(parentName);
         Child child = new Child(childName);
         parent = em.merge(parent);
         parent.addChild(child);
         return parent;
+    }
+
+    public List<Parent> findAll() {
+        log.trace("findAll");
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Parent> cq = cb.createQuery(Parent.class);
+        cq.from(Parent.class);
+        return em.createQuery(cq).getResultList();
+    }
+
+    public void deleteAll() {
+        log.trace("deleteAll");
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Parent> cq = cb.createQuery(Parent.class);
+        cq.from(Parent.class);
+        List<Parent> parents = em.createQuery(cq).getResultList();
+        for (Parent parent : parents) {
+            em.remove(parent);
+        }
     }
 
 }
