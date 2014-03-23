@@ -9,11 +9,11 @@
     </head>
     <body>
         <h1>Guestbook (jsp)</h1>
-        <p><code>index.jsp</code> backed by 
+        <p><code>jsp/index.jsp</code> backed by 
             <code>PostServlet.java</code> servlet</p>
             <c:url var="htmlHref" value="/index.html" />
-            <c:url var="jsfHref" value="/index.xhtml" />
-            <c:url var="primefacesHref" value="/primefaces.xhtml" />
+            <c:url var="jsfHref" value="/jsf/index.xhtml" />
+            <c:url var="primefacesHref" value="/primefaces/index.xhtml" />
         <p><a href="${fn:escapeXml(htmlHref)}">html</a>
             | <b>jsp</b>
             | <a href="${fn:escapeXml(jsfHref)}">jsf</a>
@@ -21,13 +21,14 @@
 
         <c:url var="formAction" value="/PostServlet" />
         <form action="${fn:escapeXml(formAction)}" method="post">
-            <c:if test="${not empty validationMessages}">
-                <ul>
-                    <c:forEach items="${validationMessages}" var="validationMessage">
-                        <li><c:out value="${validationMessage}" /></li>
-                    </c:forEach>
-                </ul>
-            </c:if>
+            <ul>
+                <c:if test="${not empty message}">
+                    <li><c:out value="${message}" /></li>
+                </c:if>
+                <c:forEach items="${validationMessages}" var="validationMessage">
+                    <li><c:out value="${validationMessage}" /></li>
+                </c:forEach>
+            </ul>
             <p>
                 <label for="author">Author:</label><br />
                 <input id="author" name="author" value="${fn:escapeXml(currentPost.author)}"/>
@@ -52,7 +53,7 @@
 
             <hr />
 
-            <table>
+            <table border="1">
                 <thead>
                     <tr>
                         <th>Author</th>
@@ -65,7 +66,11 @@
                         <tr>
                             <td><c:out value="${post.author}"/></td>
                             <td><c:out value="${post.message}"/></td>
-                            <td><button type="submit" name="button" value="delete.${fn:escapeXml(post.id)}">Delete post</button></td>
+                            <td><button type="submit" name="button" value="delete.${fn:escapeXml(post.id)}">Delete post</button>
+                                <c:url var="updateHref" value="/PostUpdateServlet">
+                                    <c:param name="post" value="${post.id}" />
+                                </c:url>
+                                <a href="${fn:escapeXml(updateHref)}">Update post</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -79,7 +84,7 @@
                         <ul>
                             <c:forEach items="${parent.children}" var="child">
                                 <li>Child: <c:out value="${child.name}" /></li>
-                            </c:forEach>
+                                </c:forEach>
                         </ul>
                     </li>
                 </c:forEach>

@@ -14,7 +14,7 @@
     </h:head>
     <h:body>
         <h1>Guestbook update post (jsf)</h1>
-        <p><code>update.xhtml</code> backed by 
+        <p><code>jsf/update.xhtml</code> backed by 
             <code>PostUpdateBacking.java</code> bean</p>
 
         <h:form id="form">
@@ -31,7 +31,7 @@
             <p>
                 <h:commandButton action="#{postUpdateBacking.update()}"
                                  value="Update post" />
-                <h:link outcome="/index" value="Cancel" />
+                <h:link outcome="./index" value="Cancel" />
             </p>
         </h:form>
     </h:body>

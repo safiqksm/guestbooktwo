@@ -14,12 +14,12 @@
     </h:head>
     <h:body>
         <h1>Guestbook (jsf)</h1>
-        <p><code>index.xhtml</code> backed by 
+        <p><code>jsf/index.xhtml</code> backed by 
             <code>PostBacking.java</code> bean</p>
         <p><h:outputLink value="#{request.contextPath}/index.html">html</h:outputLink>
             | <h:outputLink value="#{request.contextPath}/PostServlet">jsp</h:outputLink>
             | <b>jsf</b>
-            | <h:link outcome="/primefaces">primefaces</h:link></p>
+            | <h:link outcome="/primefaces/index">primefaces</h:link></p>
 
         <h:form id="form">
             <h:messages globalOnly="true" />
@@ -53,7 +53,7 @@
 
             <hr />
 
-            <h:dataTable id="dataTable" value="#{postBacking.posts}" var="post">
+            <h:dataTable id="dataTable" value="#{postBacking.posts}" var="post" border="1">
                 <h:column>
                     <f:facet name="header">Author</f:facet>
                     <h:outputText value="#{post.author}" />
@@ -66,8 +66,9 @@
                     <f:facet name="header">Action</f:facet>
                     <h:commandButton action="#{postBacking.delete(post.id)}"
                                      value="Delete post" />
-                    <h:link outcome="/update" value="Update post" includeViewParams="true">
-                        <o:param name="post" value="#{post}" converter="#{postConverter}" />
+                    <!-- o:param name="post" value="#{post}" converter="#{postConverter}" -->
+                    <h:link outcome="./update" value="Update post" includeViewParams="true">
+                        <f:param name="post" value="#{post.id}" />
                     </h:link>
                 </h:column>
             </h:dataTable>

@@ -9,19 +9,21 @@
     <h:head>
         <meta charset="UTF-8" />
         <title>Guestbook (primefaces)</title>
-            <h:outputStylesheet library="default" name="css/primefaces.css" />
+        <h:outputStylesheet library="default" name="css/primefaces.css" />
     </h:head>
     <h:body>
 
         <h1>Guestbook (primefaces)</h1>
-        <p><code>primefaces.xhtml</code> backed by 
+        <p><code>primefaces/index.xhtml</code> backed by 
             <code>PostBacking.java</code> bean</p>
         <p><h:outputLink value="#{request.contextPath}/index.html">html</h:outputLink>
             | <h:outputLink value="#{request.contextPath}/PostServlet">jsp</h:outputLink>
-            | <h:link outcome="/index">jsf</h:link>
+            | <h:link outcome="/jsf/index">jsf</h:link>
             | <b>primefaces</b></p>
 
         <h:form id="form">
+            <p:messages globalOnly="true" />
+            
             <p>
                 <p:outputLabel value="Author:" for="author" /><br />
                 <p:inputText id="author" value="#{postBacking.currentPost.author}" label="author" /><br />
@@ -67,6 +69,10 @@
                     <p:commandButton action="#{postBacking.delete(post.id)}"
                                      value="Delete post"
                                      update="dataTable" />
+                    <!-- o:param name="post" value="#{post}" converter="#{postConverter}" -->
+                    <h:link outcome="./update" value="Update post" includeViewParams="true">
+                        <f:param name="post" value="#{post.id}" />
+                    </h:link>
                 </p:column>
             </p:dataTable>
 
