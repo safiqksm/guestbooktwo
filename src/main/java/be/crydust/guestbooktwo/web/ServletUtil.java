@@ -32,7 +32,7 @@ public final class ServletUtil {
         return s;
     }
 
-    static List convertToValidationMessages(EJBException e) {
+    static List<String> convertToValidationMessages(EJBException e) {
         List<String> validationMessages = new ArrayList<>();
         Throwable cause = e.getCause();
         if (cause instanceof ConstraintViolationException) {
