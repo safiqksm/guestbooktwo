@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:metadata>
+        <f:viewParam name="post" value="#{postUpdateBacking.currentPost}" converter="#{postConverter}" />
+        <f:event type="preRenderView" listener="#{postUpdateBacking.init()}" />
+    </f:metadata>
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Guestbook update post (jsf)</title>
+
+    </h:head>
+    <h:body>
+        <h1>Guestbook update post (jsf)</h1>
+        <p><code>jsf/update.xhtml</code> backed by 
+            <code>PostUpdateBacking.java</code> bean</p>
+
+        <h:form id="form">
+            <p>
+                <h:outputLabel value="Author:" for="author" /><br />
+                <h:inputText id="author" value="#{postUpdateBacking.currentPost.author}" label="author" /><br />
+                <h:message for="author" />
+            </p>
+            <p>
+                <h:outputLabel value="Message:" for="message" /><br />
+                <h:inputTextarea id="message" value="#{postUpdateBacking.currentPost.message}" label="message" /><br />
+                <h:message for="message" />
+            </p>
+            <p>
+                <h:commandButton action="#{postUpdateBacking.update()}"
+                                 value="Update post" />
+                <h:link outcome="./index" value="Cancel" />
+            </p>
+        </h:form>
+    </h:body>
+</html>
