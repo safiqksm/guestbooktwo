@@ -67,7 +67,7 @@
                     <h:commandButton action="#{postBacking.delete(post.id)}"
                                      value="Delete post" />
                     <!-- o:param name="post" value="#{post}" converter="#{postConverter}" -->
-                    <h:link outcome="./update" value="Update post" includeViewParams="true">
+                    <h:link outcome="update" value="Update post" includeViewParams="true">
                         <f:param name="post" value="#{post.id}" />
                     </h:link>
                 </h:column>

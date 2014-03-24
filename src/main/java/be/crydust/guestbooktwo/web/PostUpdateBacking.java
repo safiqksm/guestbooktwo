@@ -34,7 +34,7 @@ public class PostUpdateBacking implements Serializable {
     public String update() {
         postBoundary.update(getCurrentPost());
         Messages.addFlashGlobalInfo("Post updated successfully");
-        return "./index?faces-redirect=true";
+        return "index?faces-redirect=true";
     }
 
     // Getters/setters
