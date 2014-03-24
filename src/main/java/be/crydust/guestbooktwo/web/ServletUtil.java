@@ -8,8 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJBException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,7 +76,7 @@ public final class ServletUtil {
         StringBuilder url = new StringBuilder()
                 .append(request.getContextPath())
                 .append('/')
-                .append(urlencode(servlet));
+                .append(servlet);
         if (!params.isEmpty()) {
             url.append('?');
             for (Map.Entry<String, String> param : params.entrySet()) {

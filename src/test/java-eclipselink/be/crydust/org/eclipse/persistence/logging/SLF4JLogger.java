@@ -37,7 +37,7 @@ public class SLF4JLogger extends AbstractSessionLog {
     /**
      * Stores eagerly initialised loggers.
      */
-    private Map<String, Logger> categoryLoggers = new HashMap<String, Logger>();
+    private final Map<String, Logger> categoryLoggers = new HashMap<>();
 
     /**
      * INTERNAL: Add logger to the catagoryLoggers.
