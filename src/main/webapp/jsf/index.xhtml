@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
     <f:metadata>
         <f:event type="preRenderView" listener="#{postBacking.init()}" />
     </f:metadata>
@@ -13,14 +14,16 @@
     </h:head>
     <h:body>
         <h1>Guestbook (jsf)</h1>
-        <p><code>index.xhtml</code> backed by 
+        <p><code>jsf/index.xhtml</code> backed by 
             <code>PostBacking.java</code> bean</p>
         <p><h:outputLink value="#{request.contextPath}/index.html">html</h:outputLink>
             | <h:outputLink value="#{request.contextPath}/PostServlet">jsp</h:outputLink>
             | <b>jsf</b>
-            | <h:link outcome="/primefaces">primefaces</h:link></p>
+            | <h:link outcome="/primefaces/index">primefaces</h:link></p>
 
         <h:form id="form">
+            <h:messages globalOnly="true" />
+            
             <p>
                 <h:outputLabel value="Author:" for="author" /><br />
                 <h:inputText id="author" value="#{postBacking.currentPost.author}" label="author" /><br />
@@ -50,7 +53,7 @@
 
             <hr />
 
-            <h:dataTable id="dataTable" value="#{postBacking.posts}" var="post">
+            <h:dataTable id="dataTable" value="#{postBacking.posts}" var="post" border="1">
                 <h:column>
                     <f:facet name="header">Author</f:facet>
                     <h:outputText value="#{post.author}" />
@@ -63,6 +66,10 @@
                     <f:facet name="header">Action</f:facet>
                     <h:commandButton action="#{postBacking.delete(post.id)}"
                                      value="Delete post" />
+                    <!-- o:param name="post" value="#{post}" converter="#{postConverter}" -->
+                    <h:link outcome="update" value="Update post" includeViewParams="true">
+                        <f:param name="post" value="#{post.id}" />
+                    </h:link>
                 </h:column>
             </h:dataTable>
 

@@ -18,12 +18,4 @@
         <org-netbeans-modules-projectapi.jsf_2e_language>Facelets</org-netbeans-modules-projectapi.jsf_2e_language>
         <netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
     </properties>
-    <config-data xmlns="http://www.netbeans.org/ns/maven-config-data/1">
-        <configurations>
-            <configuration id="jacoco,hibernate43" profiles="jacoco hibernate43"/>
-            <configuration id="jacoco,hibernate42" profiles="jacoco hibernate42"/>
-            <configuration id="jacoco,eclipselink" profiles="jacoco eclipselink"/>
-            <configuration id="jacoco,openjpa" profiles="jacoco openjpa"/>
-        </configurations>
-    </config-data>
 </project-shared-configuration>

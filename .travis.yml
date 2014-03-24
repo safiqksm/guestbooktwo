@@ -6,6 +6,7 @@ env:
   - MAVEN_PROFILE=eclipselink
   - MAVEN_PROFILE=hibernate42
   - MAVEN_PROFILE=hibernate43
+  - MAVEN_PROFILE=openshift
 jdk:
   - oraclejdk7
   - oraclejdk8
