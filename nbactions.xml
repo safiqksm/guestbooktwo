@@ -7,5 +7,19 @@
             <goal>package</goal>
             <goal>tomee:run</goal>
         </goals>
+        <activatedProfiles>
+            <activatedProfile>openjpa</activatedProfile>
+        </activatedProfiles>
+    </action>
+    <action>
+        <actionName>CUSTOM-package wildfly:deploy</actionName>
+        <displayName>package wildfly:deploy</displayName>
+        <goals>
+            <goal>package</goal>
+            <goal>wildfly:deploy</goal>
+        </goals>
+        <activatedProfiles>
+            <activatedProfile>wildfly8</activatedProfile>
+        </activatedProfiles>
     </action>
 </actions>
