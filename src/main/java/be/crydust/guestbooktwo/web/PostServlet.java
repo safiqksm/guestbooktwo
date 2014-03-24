@@ -58,7 +58,6 @@ public class PostServlet extends HttpServlet {
         doRequest(request, response);
     }
 
-
     static Long parseId(String actionAndId) {
         if (actionAndId != null && actionAndId.contains(".")) {
             try {
