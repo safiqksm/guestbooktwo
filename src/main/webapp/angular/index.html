@@ -5,7 +5,10 @@
         <title>Guestbook (jsf)</title>
         <!--<script src="./angular-1.2.15/angular.min.js"></script>-->
         <script src="./angular-1.2.15/angular.js"></script>
-        <script src="./post.js"></script>
+        <script src="./angular-1.2.15/angular-resource.js"></script>
+        <script src="./app.js"></script>
+        <script src="./PostCtrl.js"></script>
+        <script src="./FamilyCtrl.js"></script>
     </head>
     <body>
         <h1>Guestbook (angular)</h1>
@@ -16,28 +19,66 @@
             | <a href="../jsf/index.xhtml">jsf</a>
             | <a href="../primefaces/index.xhtml">primefaces</a>
             | <b>angular</b></p>
-        <a href="../webresources/be.crydust.guestbooktwo.entities.post">http://localhost:8080/guestbooktwo/webresources/be.crydust.guestbooktwo.entities.post</a>
-        <div class="grid">
-            <div ng-controller="PostListCtrl">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Author</th>
-                            <th>Message</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="post in posts">
-                            <td>{{post.author}}</td>
-                            <td>{{post.message}}</td>
-                            <td><button ng-click="delete(post)">Delete post</button>
-                                <a href="#/posts/post={{post.id}}">Update post</a></td>
-                        </tr>
-                    </tbody>
-                </table>
 
-            </div>
+        <div ng-controller="PostCtrl">
+
+            <p>
+                <label for="author">Author:</label><br />
+                <input id="author" ng-model="author"/>
+            </p>
+            <p>
+                <label for="message">Message:</label><br />
+                <textarea id="message" ng-model="message"></textarea>
+            </p>
+            <p>
+                <button type="submit" ng-click="create(author, message)">Create post</button>
+            </p>
+
+            <hr />
+
+            <p>
+                <label for="word">Word:</label><br />
+                <input id="word" ng-model="word"/>
+            </p>
+            <p>
+                <button type="button" ng-click="deleteByWord(word)">Delete posts containing word</button>
+            </p>
+
+            <hr />
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="post in posts">
+                        <td>{{post.author}}</td>
+                        <td>{{post.message}}</td>
+                        <td><button ng-click="delete(post)">Delete post</button>
+                            <a href="#" ng-click="update(post)">Update post</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <hr />
+
+        <div ng-controller="FamilyCtrl">
+            <ul>
+                <li ng-repeat="parent in parents">
+                    {{parent.name}}
+                    <ul>
+                        <li ng-repeat="child in children | filter:parent.id:parent.id">
+                            {{child.name}}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </body>
 </html>

@@ -119,11 +119,21 @@ public class FamilyBoundary {
     public void deleteAll() {
         log.trace("deleteAll");
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Parent> cq = cb.createQuery(Parent.class);
-        cq.from(Parent.class);
-        List<Parent> parents = em.createQuery(cq).getResultList();
-        for (Parent parent : parents) {
-            em.remove(parent);
+        {
+            CriteriaQuery<Child> cq = cb.createQuery(Child.class);
+            cq.from(Child.class);
+            List<Child> children = em.createQuery(cq).getResultList();
+            for (Child child : children) {
+                em.remove(child);
+            }
+        }
+        {
+            CriteriaQuery<Parent> cq = cb.createQuery(Parent.class);
+            cq.from(Parent.class);
+            List<Parent> parents = em.createQuery(cq).getResultList();
+            for (Parent parent : parents) {
+                em.remove(parent);
+            }
         }
     }
 
