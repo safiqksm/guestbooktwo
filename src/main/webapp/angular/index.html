@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="postsApp">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Guestbook (jsf)</title>
+        <!--<script src="./angular-1.2.15/angular.min.js"></script>-->
+        <script src="./angular-1.2.15/angular.js"></script>
+        <script src="./post.js"></script>
+    </head>
+    <body>
+        <h1>Guestbook (angular)</h1>
+        <p><code>angular/index.xhtml</code> backed by 
+            <code>PostBacking.java</code> bean</p>
+        <p><a href="../index.html">html</a>
+            | <a href="../PostServlet">jsp</a>
+            | <a href="../jsf/index.xhtml">jsf</a>
+            | <a href="../primefaces/index.xhtml">primefaces</a>
+            | <b>angular</b></p>
+        <a href="../webresources/be.crydust.guestbooktwo.entities.post">http://localhost:8080/guestbooktwo/webresources/be.crydust.guestbooktwo.entities.post</a>
+        <div class="grid">
+            <div ng-controller="PostListCtrl">
+                <ul>
+                    <li ng-repeat="post in posts">
+                        {{post.id}} | {{post.author}} | {{post.message}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

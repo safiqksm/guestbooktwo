@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <Service id="jsonProvider" class-name="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+        dropRootElement = true
+        dropCollectionWrapperElement = true
+        serializeAsArray = true
+        supportUnwrapped = true
+        writeNullAsString = false
+        readNullAsEmptyString = false
+        writeXsiType = false
+        readXsiType = false
+        ignoreNamespaces = true
+    </Service>
+</resources>

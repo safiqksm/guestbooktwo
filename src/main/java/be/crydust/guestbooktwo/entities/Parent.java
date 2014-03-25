@@ -13,12 +13,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author kristof
  */
 @Entity
+@XmlRootElement
 public class Parent implements Serializable {
 
     private static final long serialVersionUID = 42L;
@@ -57,6 +60,7 @@ public class Parent implements Serializable {
         this.name = name;
     }
 
+    @XmlTransient
     public List<Child> getChildren() {
         return children;
     }
