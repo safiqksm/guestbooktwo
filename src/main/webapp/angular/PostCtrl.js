@@ -1,6 +1,6 @@
 app.controller('PostCtrl', function($scope, $resource, $filter) {
     var Post = $resource(
-            '../webresources/be.crydust.guestbooktwo.entities.post/:postId',
+            '../rest/be.crydust.guestbooktwo.entities.post/:postId',
             {postId: '@id'}, {update: {method: 'PUT'}});
     $scope.messages = [];
     function addMessage(messageText) {
