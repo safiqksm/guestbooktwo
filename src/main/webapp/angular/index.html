@@ -4,12 +4,6 @@
         <meta charset="UTF-8" />
         <title>Guestbook (jsf)</title>
         <style>[ng-cloak] { display: none; }</style>
-        <!--<script src="./angular-1.2.15/angular.min.js"></script>-->
-        <script src="./angular-1.2.15/angular.js"></script>
-        <script src="./angular-1.2.15/angular-resource.js"></script>
-        <script src="./app.js"></script>
-        <script src="./PostCtrl.js"></script>
-        <script src="./FamilyCtrl.js"></script>
     </head>
     <body>
         <h1>Guestbook (angular)</h1>
@@ -22,11 +16,11 @@
             | <b>angular</b></p>
 
         <div ng-controller="PostCtrl">
-            
+
             <ul>
-                <li ng-repeat="message in messages | orderBy : ctime">{{message.text}}</li>
+                <li ng-repeat="message in messages| orderBy : ctime">{{message.text}}</li>
             </ul>
-            
+
             <div ng-cloak="ng-cloak" ng-show="!updating">
                 <form ng-submit="create()">
                     <p>
@@ -106,5 +100,11 @@
                 </li>
             </ul>
         </div>
+
+        <script src="./angular-1.2.15/angular.min.js"></script>
+        <script src="./angular-1.2.15/angular-resource.min.js"></script>
+        <script src="./app.js"></script>
+        <script src="./PostCtrl.js"></script>
+        <script src="./FamilyCtrl.js"></script>
     </body>
 </html>
