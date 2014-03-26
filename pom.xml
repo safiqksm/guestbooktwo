@@ -283,7 +283,7 @@
                         <version>${tomee-plugin.version}</version>
                         <configuration>
                             <tomeeVersion>${tomee.version}</tomeeVersion>
-                            <tomeeClassifier>webprofile</tomeeClassifier>
+                            <tomeeClassifier>jaxrs</tomeeClassifier>
                             <classpaths>
                                 <classpath>${project.build.directory}/apache-tomee/lib/slf4j-api-${slf4j.version}.jar</classpath>
                                 <classpath>${project.build.directory}/apache-tomee/lib/jul-to-slf4j-${slf4j.version}.jar</classpath>
@@ -415,7 +415,7 @@
                         <version>${tomee-plugin.version}</version>
                         <configuration>
                             <tomeeVersion>${tomee.version}</tomeeVersion>
-                            <tomeeClassifier>webprofile</tomeeClassifier>
+                            <tomeeClassifier>jaxrs</tomeeClassifier>
                             <classpaths>
                                 <classpath>${project.build.directory}/apache-tomee/lib/slf4j-api-${slf4j.version}.jar</classpath>
                                 <classpath>${project.build.directory}/apache-tomee/lib/jul-to-slf4j-${slf4j.version}.jar</classpath>
@@ -581,7 +581,7 @@
                         <version>${tomee-plugin.version}</version>
                         <configuration>
                             <tomeeVersion>${tomee.version}</tomeeVersion>
-                            <tomeeClassifier>webprofile</tomeeClassifier>
+                            <tomeeClassifier>jaxrs</tomeeClassifier>
                             <classpaths>
                                 <classpath>${project.build.directory}/apache-tomee/lib/slf4j-api-${slf4j.version}.jar</classpath>
                                 <classpath>${project.build.directory}/apache-tomee/lib/jul-to-slf4j-${slf4j.version}.jar</classpath>
@@ -752,7 +752,7 @@
                         <version>${tomee-plugin.version}</version>
                         <configuration>
                             <tomeeVersion>${tomee.version}</tomeeVersion>
-                            <tomeeClassifier>webprofile</tomeeClassifier>
+                            <tomeeClassifier>jaxrs</tomeeClassifier>
                             <classpaths>
                                 <classpath>${project.build.directory}/apache-tomee/lib/slf4j-api-${slf4j.version}.jar</classpath>
                                 <classpath>${project.build.directory}/apache-tomee/lib/jul-to-slf4j-${slf4j.version}.jar</classpath>
