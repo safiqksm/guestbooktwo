@@ -37,8 +37,9 @@ public class ParentFacadeREST extends AbstractFacade<Parent> {
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Parent entity) {
-        super.create(entity);
+    @Produces({"application/xml", "application/json"})
+    public Parent create(Parent entity) {
+        return super.create(entity);
     }
 
     @PUT
