@@ -145,6 +145,7 @@
                     <systemPropertyVariables>
                         <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                         <openejb.log.factory>slf4j</openejb.log.factory>
+                        <org.apache.cxf.Logger>org.apache.cxf.common.logging.Slf4jLogger</org.apache.cxf.Logger>
                         <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                         <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                         <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
@@ -169,6 +170,7 @@
                             <systemPropertyVariables>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
+                                <org.apache.cxf.Logger>org.apache.cxf.common.logging.Slf4jLogger</org.apache.cxf.Logger>
                                 <openejb.classloader.forced-skip>org.xml.sax</openejb.classloader.forced-skip>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
@@ -296,6 +298,7 @@
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
+                                <org.apache.cxf.Logger>org.apache.cxf.common.logging.Slf4jLogger</org.apache.cxf.Logger>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
@@ -313,6 +316,9 @@
                                 <lib>com.h2database:h2:${h2.version}</lib>
                                 <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
                                 <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
+                                <!-- fix for https://issues.apache.org/jira/browse/OPENEJB-2063 -->
+                                <lib>remove:openejb-cxf-rs-4.6.0</lib>
+                                <lib>org.apache.openejb:openejb-cxf-rs:4.6.1-SNAPSHOT</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -428,6 +434,7 @@
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
+                                <org.apache.cxf.Logger>org.apache.cxf.common.logging.Slf4jLogger</org.apache.cxf.Logger>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
@@ -454,6 +461,9 @@
                                 <lib>org.eclipse.persistence:org.eclipse.persistence.core:${eclipselink.version}</lib>
                                 <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
                                 <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
+                                <!-- fix for https://issues.apache.org/jira/browse/OPENEJB-2063 -->
+                                <lib>remove:openejb-cxf-rs-4.6.0</lib>
+                                <lib>org.apache.openejb:openejb-cxf-rs:4.6.1-SNAPSHOT</lib>
                             </libs>
                         </configuration>
                     </plugin>
@@ -594,6 +604,7 @@
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
+                                <org.apache.cxf.Logger>org.apache.cxf.common.logging.Slf4jLogger</org.apache.cxf.Logger>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
@@ -629,6 +640,9 @@
                                 <lib>org.jboss:jandex:${jandex.version}</lib>
                                 <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
                                 <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
+                                <!-- fix for https://issues.apache.org/jira/browse/OPENEJB-2063
+                                <lib>remove:openejb-cxf-rs-4.6.0</lib>
+                                <lib>org.apache.openejb:openejb-cxf-rs:4.6.1-SNAPSHOT</lib> -->
                             </libs>
                         </configuration>
                     </plugin>
@@ -765,6 +779,7 @@
                                 <org.apache.el.parser.COERCE_TO_ZERO>false</org.apache.el.parser.COERCE_TO_ZERO>
                                 <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
                                 <openejb.log.factory>slf4j</openejb.log.factory>
+                                <org.apache.cxf.Logger>org.apache.cxf.common.logging.Slf4jLogger</org.apache.cxf.Logger>
                                 <java.util.logging.config.file>${project.basedir}/src/main/resources/jul.properties</java.util.logging.config.file>
                                 <logback.configurationFile>${project.basedir}/src/main/resources/logback.xml</logback.configurationFile>
                                 <javax.persistence.provider>${javax.persistence.provider}</javax.persistence.provider>
@@ -799,6 +814,9 @@
                                 <!--<lib>org.jboss:jandex:${jandex.version}</lib>-->
                                 <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
                                 <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
+                                <!-- fix for https://issues.apache.org/jira/browse/OPENEJB-2063 -->
+                                <lib>remove:openejb-cxf-rs-4.6.0</lib>
+                                <lib>org.apache.openejb:openejb-cxf-rs:4.6.1-SNAPSHOT</lib>
                             </libs>
                         </configuration>
                     </plugin>
