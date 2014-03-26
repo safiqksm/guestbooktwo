@@ -37,10 +37,16 @@ app.controller('PostCtrl', function($scope, $resource, $filter) {
         });
     };
     $scope.deleteByWord = function() {
-        if ($scope.word.length > 0) {
-            $filter('filter')($scope.posts, $scope.word, word).forEach(function(post) {
-                $scope.delete(post);
-            });
+        var word = $scope.word;
+        if (word.length > 0) {
+            $scope.posts = $scope.posts.filter(function(post){
+                if (post.message.indexOf(word) === -1) {
+                    return true;
+                } else {
+                    Post.delete({postId: post.id});
+                    return false;
+                }
+            })
         } else {
             addMessage('error: word shouldn\'t be empty');
         }
