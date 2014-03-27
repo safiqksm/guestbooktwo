@@ -1,5 +1,6 @@
 package be.crydust.guestbooktwo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class Parent implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public List<Child> getChildren() {
         return children;
     }

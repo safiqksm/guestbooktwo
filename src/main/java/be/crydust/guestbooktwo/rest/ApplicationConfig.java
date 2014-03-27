@@ -31,8 +31,15 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(be.crydust.guestbooktwo.rest.ChildFacadeREST.class);
+        resources.add(be.crydust.guestbooktwo.rest.JacksonContextResolver.class);
         resources.add(be.crydust.guestbooktwo.rest.ParentFacadeREST.class);
         resources.add(be.crydust.guestbooktwo.rest.PostFacadeREST.class);
+        resources.add(com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper.class);
+        resources.add(com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper.class);
+        resources.add(com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider.class);
+        resources.add(com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider.class);
+        resources.add(com.fasterxml.jackson.jaxrs.json.JsonMappingExceptionMapper.class);
+        resources.add(com.fasterxml.jackson.jaxrs.json.JsonParseExceptionMapper.class);
     }
     
 }

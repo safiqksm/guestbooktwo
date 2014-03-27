@@ -39,6 +39,11 @@
             <version>1.7</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
@@ -317,8 +322,8 @@
                                 <lib>org.apache.myfaces.core:myfaces-api:${myfaces.version}</lib>
                                 <lib>org.apache.myfaces.core:myfaces-impl:${myfaces.version}</lib>
                                 <!-- fix for https://issues.apache.org/jira/browse/OPENEJB-2063 -->
-                                <lib>remove:openejb-cxf-rs-4.6.0</lib>
-                                <lib>org.apache.openejb:openejb-cxf-rs:4.6.1-SNAPSHOT</lib>
+<!--                                <lib>remove:openejb-cxf-rs-4.6.0</lib>
+                                <lib>org.apache.openejb:openejb-cxf-rs:4.6.1-SNAPSHOT</lib>-->
                             </libs>
                         </configuration>
                     </plugin>
