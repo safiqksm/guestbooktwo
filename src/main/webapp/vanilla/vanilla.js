@@ -1,101 +1,3 @@
-// polyfill for XPath
-// will probably fail in ie10
-// http://stackoverflow.com/questions/183369/cross-browser-xpath-implementation-in-javascript
-(function(globalScope) {
-    'use strict';
-    var expr = function(xpathText, namespaces) {
-        var prefix;
-        this.xpathText = xpathText;
-        this.namespaces = namespaces || null;
-        if (document.createExpression) {
-            this.xpathExpr = true;
-        }
-        else {
-            this.namespaceString = "";
-            if (namespaces !== null) {
-                for (prefix in namespaces) {
-                    if (this.namespaceString.length > 1)
-                        this.namespaceString += ' ';
-                    this.namespaceString += 'xmlns:' + prefix + '="' +
-                            namespaces[prefix] + '"';
-                }
-            }
-        }
-    };
-    expr.prototype.getNodes = function(xmlDomCtx) {
-        var self = this, a, i,
-                doc = xmlDomCtx.ownerDocument;
-        if (doc === null)
-            doc = xmlDomCtx;
-        if (this.xpathExpr) {
-            var result = doc.evaluate(this.xpathText,
-                    xmlDomCtx,
-                    function(prefix) {
-                        return self.namespaces[prefix];
-                    },
-                    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-                    null);
-            a = [];
-            for (i = 0; i < result.snapshotLength; i++) {
-                a.push(result.snapshotItem(i));
-            }
-            return a;
-        }
-        else {
-            try {
-                doc.setProperty("SelectionLanguage", "XPath");
-                doc.setProperty("SelectionNamespaces", this.namespaceString);
-                if (xmlDomCtx === doc)
-                    xmlDomCtx = doc.documentElement;
-                return xmlDomCtx.selectNodes(this.xpathText);
-            }
-            catch (e2) {
-                throw "XPath is not supported by this browser.";
-            }
-        }
-    };
-    expr.prototype.getNode = function(xmlDomCtx) {
-        var self = this,
-                doc = xmlDomCtx.ownerDocument;
-        if (doc === null)
-            doc = xmlDomCtx;
-        if (this.xpathExpr) {
-            var result = doc.evaluate(this.xpathText,
-                    xmlDomCtx,
-                    function(prefix) {
-                        return self.namespaces[prefix];
-                    },
-                    XPathResult.FIRST_ORDERED_NODE_TYPE,
-                    null);
-            return result.singleNodeValue;
-        }
-        else {
-            try {
-                doc.setProperty("SelectionLanguage", "XPath");
-                doc.setProperty("SelectionNamespaces", this.namespaceString);
-                if (xmlDomCtx === doc)
-                    xmlDomCtx = doc.documentElement;
-                return xmlDomCtx.selectSingleNode(this.xpathText);
-            }
-            catch (e) {
-                throw "XPath is not supported by this browser.";
-            }
-        }
-    };
-    var getNodes = function(context, xpathExpr, namespaces) {
-        return(new globalScope.XPath.Expression(xpathExpr, namespaces)).getNodes(context);
-    };
-    var getNode = function(context, xpathExpr, namespaces) {
-        return(new globalScope.XPath.Expression(xpathExpr, namespaces)).getNode(context);
-    };
-    globalScope.XPath = {
-        Expression: expr,
-        getNodes: getNodes,
-        getNode: getNode
-    };
-}(this));
-
-
 // namespace for helper methods
 if (typeof vanilla !== 'object') {
     vanilla = (function() {
@@ -123,41 +25,30 @@ if (typeof vanilla !== 'object') {
                 throw new Error('could listen to event ' + type + ': addEventListener and attachEvent  are not supported');
             }
         };
-        // cross browser XPath
+        // cross browser XPath (very very limited)
         exports.evaluateXPath = function(aNode, aExpr) {
-            var result = XPath.getNodes(aNode, aExpr);
-            var found = [];
-            for (var i = 0, len = result.length; i < len; i++) {
-                found.push(result[i]);
+            var str = aExpr;
+            var regex = /\/(text\(\)|\w+)/g;
+            var match = regex.exec(str);
+            var nodes = [aNode];
+            while (match !== null && nodes.length !== 0) {
+                var nodeName = match[1];
+                var childNodes = [];
+                for (var i = 0; i<nodes.length; i++){
+                    var childNode = nodes[i].firstChild;
+                    while (childNode !== null) {
+                        if ((nodeName === 'text()' &&
+                                childNode.nodeType === 3 /* Text */) ||
+                                childNode.nodeName === nodeName) {
+                            childNodes.push(childNode);
+                        }
+                        childNode = childNode.nextSibling;
+                    }
+                }
+                nodes = childNodes;
+                match = regex.exec(str);
             }
-            return found;
-            /*
-             if (typeof window.XPathEvaluator !== 'undefined') {
-             // standards
-             var xpe = new XPathEvaluator();
-             var nsResolver = xpe.createNSResolver(aNode.ownerDocument === null ?
-             aNode.documentElement : aNode.ownerDocument.documentElement);
-             var result = xpe.evaluate(aExpr, aNode, nsResolver, 0, null);
-             var found = [];
-             var res = result.iterateNext();
-             while (res !== null) {
-             found.push(res);
-             res = result.iterateNext();
-             }
-             return found;
-             }
-             if (typeof aNode.selectNodes !== 'undefined') {
-             // msie
-             // what about namespaces?
-             var result = aNode.selectNodes(aExpr);
-             var found = [];
-             for (var i = 0, len = result.length; i < len; i++) {
-             found.push(result[i]);
-             }
-             return found;
-             }
-             throw new Error('XPath unsupported');
-             */
+            return nodes;
         };
         // cross browser ajax
         exports.request = function(method, url, dataType, message, successCallback) {

@@ -76,7 +76,6 @@ index 159e0e9..67514b2 100644
         <p>In the end this is what I did:</p>
         <pre>TODO</pre>
 
-        <script src="wgxpath.install.js"></script>
         <script src="jquery-1.9.1.js"></script>
         <script src="json3.js"></script>
         <script src="vanilla.js"></script>
@@ -122,7 +121,7 @@ index 159e0e9..67514b2 100644
                 // but we get {"greeting":{"who":"JAX-RS"}}
                 // fixed with dropRootElement = true
                 if (typeof response.greeting === 'object') {
-                    log('extra root node detected (are you using CXF on TomEE?)');
+                    log('- extra root node detected (are you using CXF on TomEE?)');
                     response = response.greeting;
                 }
                 log('recieved ' + response.who);
@@ -131,7 +130,7 @@ index 159e0e9..67514b2 100644
                 // should be [{"who":"JAX-RS zero"},{"who":"JAX-RS one"}]
                 // but we get {"greeting":[{"who":"JAX-RS zero"},{"who":"JAX-RS one"}]}
                 if (typeof response.greeting === 'object') {
-                    log('extra root node detected (are you using CXF on TomEE?)');
+                    log('- extra root node detected (are you using CXF on TomEE?)');
                     response = response.greeting;
                 }
                 log('recieved ' + response[0].who + ' and ' + response[1].who);
@@ -155,6 +154,8 @@ index 159e0e9..67514b2 100644
                             // one of these was probably set
                             // ignoreNamespaces = true
                             // writeXsiType = false
+                        } else if (response.aString === 'null') {
+                            log('- null value is represented by string "null"');
                         } else if (typeof response.aString === 'string') {
                             log('- null value is represented by a non-empty string');
                         } else if (typeof response.aString === 'object') {
