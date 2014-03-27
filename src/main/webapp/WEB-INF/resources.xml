@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <Service id="jsonProvider" class-name="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
-    <Service id="jaxbProvider" class-name="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
+    <Service id="json" class-name="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
 </resources>

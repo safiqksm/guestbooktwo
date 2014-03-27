@@ -69,7 +69,7 @@ app.controller('PostCtrl', function($scope, $resource, $filter) {
             $scope.updating = false;
             $scope.currentPost = null;
             $scope.currentPostBackup = null;
-//            addMessage('Post updated successfully');
+            addMessage('Post updated successfully');
         }, function(httpResponse) {
             addMessage('error ' + httpResponse.status + ': updating Post failed');
         });

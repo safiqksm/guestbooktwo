@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(be.crydust.guestbooktwo.rest.ChildFacadeREST.class);
+        resources.add(be.crydust.guestbooktwo.rest.HelloWorld.class);
         resources.add(be.crydust.guestbooktwo.rest.JacksonContextResolver.class);
         resources.add(be.crydust.guestbooktwo.rest.ParentFacadeREST.class);
         resources.add(be.crydust.guestbooktwo.rest.PostFacadeREST.class);

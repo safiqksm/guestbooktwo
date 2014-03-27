@@ -1,11 +1,8 @@
 package be.crydust.guestbooktwo.rest;
 
-import be.crydust.guestbooktwo.entities.Child;
-import be.crydust.guestbooktwo.entities.Parent;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import java.util.List;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.ContextResolver;
