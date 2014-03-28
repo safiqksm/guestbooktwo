@@ -25,28 +25,51 @@ if (typeof vanilla !== 'object') {
                 throw new Error('could listen to event ' + type + ': addEventListener and attachEvent  are not supported');
             }
         };
-        // cross browser XPath (very very limited)
-        exports.evaluateXPath = function(aNode, aExpr) {
-            var str = aExpr;
-            var regex = /\/(text\(\)|\w+)/g;
-            var match = regex.exec(str);
-            var nodes = [aNode];
+        // cross browser XPath (very limited, but cross browser)
+        exports.evaluateXPath = function(xpathExpression, contextNode) {
+            var TEXT_NODE, regex, match, nodes,
+                    isTextNode, isAttribute, nodeName, childNodes,
+                    i, node, childNode;
+            if (!/^(?:\/\w+)+(?:\/text\(\)|\/@\w+)?$/.test(xpathExpression)) {
+                throw new Error('Illegal argument "' + xpathExpression + '"');
+            }
+            TEXT_NODE = 3;
+            regex = /\/(text\(\)|\w+|@(\w+))/g;
+            match = regex.exec(xpathExpression);
+            nodes = [contextNode];
             while (match !== null && nodes.length !== 0) {
-                var nodeName = match[1];
-                var childNodes = [];
-                for (var i = 0; i<nodes.length; i++){
-                    var childNode = nodes[i].firstChild;
-                    while (childNode !== null) {
-                        if ((nodeName === 'text()' &&
-                                childNode.nodeType === 3 /* Text */) ||
-                                childNode.nodeName === nodeName) {
-                            childNodes.push(childNode);
+                isAttribute = (match[2] !== undefined);
+                nodeName = isAttribute ? match[2] : match[1];
+                isTextNode = (nodeName === 'text()');
+                childNodes = [];
+                for (i = 0; i < nodes.length; i++) {
+                    node = nodes[i];
+                    childNode;
+                    if (isAttribute) {
+                        childNode = node.getAttribute(nodeName);
+                        if (childNode !== null) {
+                            childNodes.push(childNode)/*.value*/;
                         }
-                        childNode = childNode.nextSibling;
+                    } else if (isTextNode) {
+                        childNode = node.firstChild;
+                        while (childNode !== null) {
+                            if (childNode.nodeType === TEXT_NODE) {
+                                childNodes.push(childNode/*.nodeValue*/);
+                            }
+                            childNode = childNode.nextSibling;
+                        }
+                    } else {
+                        childNode = node.firstChild;
+                        while (childNode !== null) {
+                            if (childNode.nodeName === nodeName) {
+                                childNodes.push(childNode);
+                            }
+                            childNode = childNode.nextSibling;
+                        }
                     }
                 }
                 nodes = childNodes;
-                match = regex.exec(str);
+                match = regex.exec(xpathExpression);
             }
             return nodes;
         };

@@ -101,14 +101,12 @@ index 159e0e9..67514b2 100644
                 // with jQuery
                 //var who = jQuery(response, 'greeting > who').text());
                 var who = vanilla.evaluateXPath(
-                        response,
-                        '/greeting/who/text()')[0].nodeValue;
+                        '/greeting/who/text()', response)[0].nodeValue;
                 log('recieved ' + who);
             }
             function xmllistRequestCallback(response) {
                 var names = vanilla.evaluateXPath(
-                        response,
-                        '/greetings/greeting/who/text()');
+                        '/greetings/greeting/who/text()', response);
                 log('recieved ' + names[0].nodeValue + ' and ' + names[1].nodeValue);
             }
             function xmlcomplicatedRequestCallback(response) {
