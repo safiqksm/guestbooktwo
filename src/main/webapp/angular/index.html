@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app="postsApp">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Guestbook (jsf)</title>
+        <style>[ng-cloak] { display: none; }</style>
+    </head>
+    <body>
+        <h1>Guestbook (angular)</h1>
+        <p><code>angular/index.xhtml</code> backed by 
+            <code>*REST.java</code> bean</p>
+        <p><a href="../index.html">html</a>
+            | <a href="../PostServlet">jsp</a>
+            | <a href="../jsf/index.xhtml">jsf</a>
+            | <a href="../primefaces/index.xhtml">primefaces</a>
+            | <b>angular</b></p>
+
+        <div ng-controller="PostCtrl">
+
+            <ul>
+                <li ng-repeat="message in messages| orderBy : ctime">{{message.text}}</li>
+            </ul>
+
+            <div ng-cloak="ng-cloak" ng-show="!updating">
+                <form ng-submit="create()">
+                    <p>
+                        <label for="author">Author:</label><br />
+                        <input id="author" ng-model="author"/>
+                    </p>
+                    <p>
+                        <label for="message">Message:</label><br />
+                        <textarea id="message" ng-model="message"></textarea>
+                    </p>
+                    <p>
+                        <button type="submit">Create post</button>
+                    </p>
+                </form>
+
+                <hr />
+
+                <form ng-submit="deleteByWord()">
+                    <p>
+                        <label for="word">Word:</label><br />
+                        <input id="word" ng-model="word"/>
+                    </p>
+                    <p>
+                        <button type="submit">Delete posts containing word</button>
+                    </p>
+                </form>
+
+                <hr />
+
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Author</th>
+                            <th>Message</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="post in posts">
+                            <td>{{post.author}}</td>
+                            <td>{{post.message}}</td>
+                            <td><button ng-click="delete(post)">Delete post</button>
+                                <a href="#" ng-click="beginUpdate(post)">Update post</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <form ng-submit="endUpdate()" ng-cloak="ng-cloak" ng-show="updating">
+                <p>
+                    <label for="author">Author:</label><br />
+                    <input id="author" ng-model="currentPost.author"/>
+                </p>
+                <p>
+                    <label for="message">Message:</label><br />
+                    <textarea id="message" ng-model="currentPost.message"></textarea>
+                </p>
+                <p>
+                    <button type="submit">Update post</button>
+                    <a href="#" ng-click="cancelUpdate(post)">Cancel</a>
+                </p>
+            </form>
+        </div>
+
+        <hr />
+
+        <div ng-controller="FamilyCtrl">
+            <ul>
+                <li ng-repeat="parent in parents">
+                    {{parent.name}}
+                    <ul>
+                        <li ng-repeat="child in children| filter:parent.id:parent.id">
+                            {{child.name}}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <script src="./angular-1.2.15/angular.min.js"></script>
+        <script src="./angular-1.2.15/angular-resource.min.js"></script>
+        <script src="./app.js"></script>
+        <script src="./PostCtrl.js"></script>
+        <script src="./FamilyCtrl.js"></script>
+    </body>
+</html>

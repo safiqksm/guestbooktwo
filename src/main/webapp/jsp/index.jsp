@@ -14,10 +14,12 @@
             <c:url var="htmlHref" value="/index.html" />
             <c:url var="jsfHref" value="/jsf/index.xhtml" />
             <c:url var="primefacesHref" value="/primefaces/index.xhtml" />
+            <c:url var="angularHref" value="/angular/index.html" />
         <p><a href="${fn:escapeXml(htmlHref)}">html</a>
             | <b>jsp</b>
             | <a href="${fn:escapeXml(jsfHref)}">jsf</a>
-            | <a href="${fn:escapeXml(primefacesHref)}">primefaces</a></p>
+            | <a href="${fn:escapeXml(primefacesHref)}">primefaces</a>
+            | <a href="${fn:escapeXml(angularHref)}">angular</a></p>
 
         <c:url var="formAction" value="/PostServlet" />
         <form action="${fn:escapeXml(formAction)}" method="post">
