@@ -77,7 +77,20 @@
             function xmllistRequestCallback(response) {
                 var names = vanilla.getNodes(
                         '/greetings/greeting/who/text()', response);
-                log('recieved ' + names[0] + ' and ' + names[1]);
+                if (names.length === 0) {
+                    names = vanilla.getNodes(
+                        '/collection/greeting/who/text()', response);
+                    if (names.length !== 0) {
+                        log('+ collection name is "collection" (is this RestEasy?)');
+                    }
+                } else {
+                    log('+ collection name is "greetings"');
+                }
+                if (names.length === 0) {
+                    log('- what is this madness?');
+                } else {
+                    log('+ recieved ' + names[0] + ' and ' + names[1]);
+                }
             }
             function xmlcomplicatedRequestCallback(response) {
                 log('recieved TODO');
