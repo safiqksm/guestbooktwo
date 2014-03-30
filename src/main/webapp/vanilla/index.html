@@ -32,52 +32,22 @@
                 Contains comment explaining the problem with wrapped json.</li>
             <li><a href="http://rmannibucau.wordpress.com/2012/10/04/jax-rsjax-ws-configuration-for-tomee-1-5-0/">JAX-RS/JAX-WS configuration for TomEE 1.5.0</a><br/>
                 Explains the placement of openejb-jar.xml to configure JAX-RS endpoints.</li>
-            <li><a href="https://gist.github.com/rmannibucau/a4371909c0bc07e2383d">gist by rmannibucau explaining the use of JacksonJsonProvider</a><br/>
-                <pre>
-diff --git a/pom.xml b/pom.xml
-index afcef59..d0d565d 100644
---- a/pom.xml
-+++ b/pom.xml
-@@ -36,5 +36,11 @@
-       &lt;version&gt;6.0-4&lt;/version&gt;
-       &lt;scope&gt;provided&lt;/scope&gt;
-     &lt;/dependency&gt;
-+    &lt;dependency&gt;
-+      &lt;groupId&gt;com.fasterxml.jackson.jaxrs&lt;/groupId&gt;
-+      &lt;artifactId&gt;jackson-jaxrs-json-provider&lt;/artifactId&gt;
-+      &lt;version&gt;2.1.4&lt;/version&gt;
-+    &lt;/dependency&gt;
-+
-   &lt;/dependencies&gt;
- &lt;/project&gt;
-\ No newline at end of file
-diff --git a/src/main/webapp/WEB-INF/resources.xml b/src/main/webapp/WEB-INF/resources.xml
-index 159e0e9..67514b2 100644
---- a/src/main/webapp/WEB-INF/resources.xml
-+++ b/src/main/webapp/WEB-INF/resources.xml
-@@ -1,9 +1,4 @@
- &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
- &lt;resources&gt;
--  &lt;Service id=&quot;json&quot; class-name=&quot;org.apache.cxf.jaxrs.provider.json.JSONProvider&quot;&gt;
--    SkipJaxbChecks = true
--    DropRootElement = true
--    SupportUnwrapped = true
--    SingleJaxbContext = true
--  &lt;/Service&gt;
-+  &lt;Service id=&quot;json&quot; class-name=&quot;com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider&quot; /&gt;
- &lt;/resources&gt;
-                </pre>
-            </li>
+            <li><a href="https://gist.github.com/rmannibucau/a4371909c0bc07e2383d">gist by rmannibucau explaining the use of JacksonJsonProvider</a><br/></li>
             <li><a href="http://openejb.979440.n4.nabble.com/Configuring-Apache-CXF-in-TomEE-td4660207.html">Configuring Apache CXF in TomEE</a><br/>
                 Explains where to put openejb-jar.xml and resources.xml.</li>
             <li><a href="https://github.com/kouphax/todomvc-server/tree/master/examples/jee6-tomee">todomvc-server jee6-tomee</a><br/>
                 This project uses the JacksonJsonProvider. Explains the &quot;Supporting unwrapped JSON&quot; problem in readme.</li>
         </ul>
-        <p>In the end this is what I did:</p>
-        <pre>TODO</pre>
+        <p>All my problems went away with the newer version of TomEE whitch detects and uses jackson for json serialization. Just add this to pom.xml:</p>
+        <pre>&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.jaxrs&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-jaxrs-json-provider&lt;/artifactId&gt;
+    &lt;version&gt;2.3.2&lt;/version&gt;
+&lt;/dependency&gt;</pre>
 
-        <script src="jquery-1.9.1.js"></script>
-        <script src="json3.js"></script>
+        <script src="jquery-1.11.0.js"></script>
+        <script src="jquery-migrate-1.2.1.js"></script>
+        <script src="json3-3.3.0.js"></script>
         <script src="vanilla.js"></script>
         <script>
             function log(message) {
@@ -100,19 +70,94 @@ index 159e0e9..67514b2 100644
                 //        .nodeValue;
                 // with jQuery
                 //var who = jQuery(response, 'greeting > who').text());
-                var who = vanilla.evaluateXPath(
-                        '/greeting/who/text()', response)[0].nodeValue;
+                var who = vanilla.getNode(
+                        '/greeting/who/text()', response);
                 log('recieved ' + who);
             }
             function xmllistRequestCallback(response) {
-                var names = vanilla.evaluateXPath(
+                var names = vanilla.getNodes(
                         '/greetings/greeting/who/text()', response);
-                log('recieved ' + names[0].nodeValue + ' and ' + names[1].nodeValue);
+                log('recieved ' + names[0] + ' and ' + names[1]);
             }
             function xmlcomplicatedRequestCallback(response) {
                 log('recieved TODO');
                 //aString should be xsi:nil
                 //aDate should be iso?
+                
+                log('recieved complicated thing');
+                var aStringNode = vanilla.getNode(
+                        '/complicatedGreeting/aString', response);
+                var aStringNilAttribute = vanilla.getNode(
+                        '/complicatedGreeting/aString/@xsi:nil', response);
+                if (aStringNode === undefined) {
+                    log('- null value isn\'t included in response');
+                } else {
+                    log('+ null value is included in response');
+                    if (aStringNilAttribute === 'true') {
+                        log('+ null value is represented by xsi:nil');
+                    } else {
+                        log('- null value is not represented by xsi:nil');
+                    }
+                }
+                var aDate = vanilla.getNode(
+                        '/complicatedGreeting/aDate/text()', response);
+                if (aDate === undefined) {
+                    log('- date value isn\'t included in response');
+                } else {
+                    log('+ date value is included in response');
+                    if (typeof aDate === 'string') {
+                        var iso = /^-?\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?(?:[-+]\d\d:\d\d|Z)?$/;
+                        var num = /^\d+$/;
+                        if (iso.test(aDate)) {
+                            log('+ DateTime in ISO format');
+                        } else if (num.test(aDate)) {
+                            if (Math.abs((+new Date()) - (+aDate)) < 5 * 1000) {
+                            log('+ DateTime in epoch miliseconds number format');
+                            } else if (Math.abs((+new Date()) / 1000 - (+aDate)) < 5) {
+                                log('- DateTime in epoch seconds number format');
+                            } else {
+                                log('- DateTime in custom number format');
+                                log('expected = ' + (+new Date()));
+                                log('actual   = ' + aDate);
+                            }
+                        } else {
+                            log('- DateTime in custom string format');
+                        }
+                    } else {
+                        log('- what is this madness?');
+                    }
+                }
+                var aLong = vanilla.getNode(
+                        '/complicatedGreeting/aLong/text()', response);
+                if (aLong === undefined) {
+                    log('- long value isn\'t included in response');
+                } else {
+                    log('+ long value is included in response');
+                    if (typeof aLong === 'string') {
+                        if (aLong === '9223372036854775807') {
+                            log('+ long is correct');
+                        } else {
+                            log('- long = ' + aLong);
+                        }
+                    } else {
+                        log('- what is this madness?');
+                    }
+                }
+                var aNotherString = vanilla.getNode(
+                        '/complicatedGreeting/aNotherString/text()', response);
+                if (aNotherString === undefined) {
+                    log('- aNotherString value isn\'t included in response');
+                } else {
+                    log('+ aNotherString value is included in response');
+                    if (aNotherString === 'a:\u00E1\u00E2\u00E4\u00E0 c:\u00E7 e:\u00E9\u00EA\u00EB\u00E8 i:\u00ED\u00EE\u00EF\u00EC\u0131 I:\u0130 o:\u00F3\u00F4\u00F6\u00F2 u:\u00FA\u00FB\u00FC\u00F9 euro:\u20AC tree:\u2F4A') {
+                        log('+ aNotherString was correctly sent trough');
+                    } else {
+                        log('- what is this madness?');
+                        log('expected = a:\u00E1\u00E2\u00E4\u00E0 c:\u00E7 e:\u00E9\u00EA\u00EB\u00E8 i:\u00ED\u00EE\u00EF\u00EC\u0131 I:\u0130 o:\u00F3\u00F4\u00F6\u00F2 u:\u00FA\u00FB\u00FC\u00F9 euro:\u20AC tree:\u2F4A');
+                        log('actual   = ' + aNotherString);
+                    }
+                }
+                
             }
             function jsonRequestCallback(response) {
                 // should be {"who":"JAX-RS"}
@@ -185,8 +230,6 @@ index 159e0e9..67514b2 100644
                             log('- DateTime in custom string format');
                         }
                     } else if (typeof response.aDate === 'number') {
-                        console.log(+new Date());
-                        console.log(response.aDate);
                         if (Math.abs((+new Date()) - response.aDate) < 5 * 1000) {
                             // default Jackson
                             log('+ DateTime in epoch miliseconds number format');

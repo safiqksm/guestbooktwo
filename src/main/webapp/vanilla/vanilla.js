@@ -8,7 +8,7 @@ if (typeof vanilla !== 'object') {
                 return new XMLHttpRequest();
             }
             if (window.ActiveXObject) {
-                return new ActiveXObject('MSXML2.XMLHTTP.3.0');
+                return new ActiveXObject('Microsoft.XMLHTTP');
             }
             throw new Error('XMLHttpRequest not supported');
         };
@@ -26,15 +26,15 @@ if (typeof vanilla !== 'object') {
             }
         };
         // cross browser XPath (very limited, but cross browser)
-        exports.evaluateXPath = function(xpathExpression, contextNode) {
+        exports.getNodes = function(xpathExpression, contextNode) {
             var TEXT_NODE, regex, match, nodes,
                     isTextNode, isAttribute, nodeName, childNodes,
                     i, node, childNode;
-            if (!/^(?:\/\w+)+(?:\/text\(\)|\/@\w+)?$/.test(xpathExpression)) {
+            if (!/^(?:\/\w+)+(?:\/text\(\)|\/@(?:xsi:nil|\w+))?$/.test(xpathExpression)) {
                 throw new Error('Illegal argument "' + xpathExpression + '"');
             }
             TEXT_NODE = 3;
-            regex = /\/(text\(\)|\w+|@(\w+))/g;
+            regex = /\/(text\(\)|\w+|@(xsi:nil|\w+))/g;
             match = regex.exec(xpathExpression);
             nodes = [contextNode];
             while (match !== null && nodes.length !== 0) {
@@ -48,13 +48,13 @@ if (typeof vanilla !== 'object') {
                     if (isAttribute) {
                         childNode = node.getAttribute(nodeName);
                         if (childNode !== null) {
-                            childNodes.push(childNode)/*.value*/;
+                            childNodes.push(childNode);
                         }
                     } else if (isTextNode) {
                         childNode = node.firstChild;
                         while (childNode !== null) {
                             if (childNode.nodeType === TEXT_NODE) {
-                                childNodes.push(childNode/*.nodeValue*/);
+                                childNodes.push(childNode.nodeValue);
                             }
                             childNode = childNode.nextSibling;
                         }
@@ -72,6 +72,13 @@ if (typeof vanilla !== 'object') {
                 match = regex.exec(xpathExpression);
             }
             return nodes;
+        };
+        exports.getNode = function(xpathExpression, contextNode) {
+            var nodes = exports.getNodes(xpathExpression, contextNode);
+            if (nodes.length !== 0) {
+                return nodes[0];
+            }
+            return undefined;
         };
         // cross browser ajax
         exports.request = function(method, url, dataType, message, successCallback) {
