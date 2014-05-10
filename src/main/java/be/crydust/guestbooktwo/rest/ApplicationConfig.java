@@ -40,6 +40,14 @@ public class ApplicationConfig extends Application {
         resources.add(com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider.class);
         resources.add(com.fasterxml.jackson.jaxrs.json.JsonMappingExceptionMapper.class);
         resources.add(com.fasterxml.jackson.jaxrs.json.JsonParseExceptionMapper.class);
+        resources.add(org.jboss.resteasy.plugins.providers.jaxb.CollectionProvider.class);
+        resources.add(org.jboss.resteasy.plugins.providers.jaxb.JAXBElementProvider.class);
+        resources.add(org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlRootElementProvider.class);
+        resources.add(org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlSeeAlsoProvider.class);
+        resources.add(org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlTypeProvider.class);
+        resources.add(org.jboss.resteasy.plugins.providers.jaxb.MapProvider.class);
+        resources.add(org.jboss.resteasy.plugins.providers.jaxb.XmlJAXBContextFinder.class);
+        resources.add(org.jboss.resteasy.plugins.stats.RegistryStatsResource.class);
     }
     
 }
