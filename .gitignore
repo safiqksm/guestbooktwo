@@ -1,3 +1,5 @@
-target/
-data/
-deployments/ROOT.war
+/target/
+/data/
+/deployments/ROOT.war
+/nb-configuration.xml
+/nbactions.xml
