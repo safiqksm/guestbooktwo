@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
-import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
+//import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
 
 @Path("/helloworld")
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -40,7 +40,7 @@ public class HelloWorld {
     @GET
     @Path("/list")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Wrapped(element = "greetings")
+//    @Wrapped(element = "greetings")
     public List<Greeting> getGreetingList() {
         return Arrays.asList(
                 new Greeting("JAX-RS zero"),
