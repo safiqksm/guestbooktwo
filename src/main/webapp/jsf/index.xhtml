@@ -24,7 +24,7 @@
 
         <h:form id="form">
             <h:messages globalOnly="true" />
-            
+
             <p>
                 <h:outputLabel value="Author:" for="author" /><br />
                 <h:inputText id="author" value="#{postBacking.currentPost.author}" label="author" /><br />
@@ -66,8 +66,11 @@
                 <h:column>
                     <f:facet name="header">Action</f:facet>
                     <h:commandButton action="#{postBacking.delete(post.id)}"
+                                     id="deletePostByIdButton"
                                      value="Delete post" />
+                    <ui:remove>
                     <!-- o:param name="post" value="#{post}" converter="#{postConverter}" -->
+                    </ui:remove>
                     <h:link outcome="update" value="Update post" includeViewParams="true">
                         <f:param name="post" value="#{post.id}" />
                     </h:link>
