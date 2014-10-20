@@ -65,12 +65,12 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>1.9.5</version>
+                <version>1.10.8</version>
             </dependency>
             <dependency>
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
-                <version>1.0</version>
+                <version>2.1</version>
             </dependency>
             <dependency>
                 <groupId>com.h2database</groupId>
@@ -116,12 +116,12 @@
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>angularjs</artifactId>
-                <version>1.2.26</version>
+                <version>1.3.0</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>json3</artifactId>
-                <version>3.3.2</version>
+                <version>3.3.2-1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -431,7 +431,7 @@
                         <version>${openjpa.version}</version>
                         <configuration>
                             <includes>**/entities/*.class</includes>
-                            <excludes>**/entities/XML*.class</excludes>
+                            <excludes>**/entities/XML*.class,**/*_.class</excludes>
                             <addDefaultConstructor>true</addDefaultConstructor>               
                             <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
                         </configuration>
@@ -540,7 +540,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>1.8</version>
                         <executions>
                             <execution>
                                 <id>add-test-source</id>
@@ -731,7 +730,6 @@
                     <plugin>
                         <groupId>org.bsc.maven</groupId>
                         <artifactId>maven-processor-plugin</artifactId>
-                        <version>2.2.3</version>
                         <executions>
                             <execution>
                                 <id>process</id>
@@ -820,17 +818,17 @@
             
             <properties>
                 <javax.persistence.provider>org.hibernate.jpa.HibernatePersistenceProvider</javax.persistence.provider>
-                <tomee-plugin.version>1.6.0</tomee-plugin.version>
-                <tomee.version>1.6.1-SNAPSHOT</tomee.version>
-                <openejb-core.version>4.6.1-SNAPSHOT</openejb-core.version>
+                <tomee-plugin.version>1.7.1</tomee-plugin.version>
+                <tomee.version>1.7.1</tomee.version>
+                <openejb-core.version>4.7.1</openejb-core.version>
                 <antlr.version>2.7.7</antlr.version>
                 <dom4j.version>1.6.1</dom4j.version>
-                <hibernate-commons-annotations.version>4.0.4.Final</hibernate-commons-annotations.version>
-                <hibernate-entitymanager.version>4.3.4.Final</hibernate-entitymanager.version>
+                <hibernate-commons-annotations.version>4.0.5.Final</hibernate-commons-annotations.version>
+                <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
                 <hibernate-jpa-2.0.version>000</hibernate-jpa-2.0.version>
                 <hibernate-jpa-2.1.version>1.0.0.Final</hibernate-jpa-2.1.version>
-                <hibernate-jpamodelgen.version>4.3.4.Final</hibernate-jpamodelgen.version>
-                <hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
+                <hibernate-jpamodelgen.version>4.3.6.Final</hibernate-jpamodelgen.version>
+                <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
                 <jandex.version>1.1.0.Final</jandex.version>
                 <javassist.version>3.18.1-GA</javassist.version>
                 <jboss-logging.version>3.1.3.GA</jboss-logging.version>
@@ -906,7 +904,6 @@
                     <plugin>
                         <groupId>org.bsc.maven</groupId>
                         <artifactId>maven-processor-plugin</artifactId>
-                        <version>2.2.3</version>
                         <executions>
                             <execution>
                                 <id>process</id>
@@ -994,17 +991,17 @@
             
             <properties>
                 <javax.persistence.provider>org.hibernate.ejb.HibernatePersistence</javax.persistence.provider>
-                <tomee-plugin.version>1.6.0</tomee-plugin.version>
-                <tomee.version>1.6.0</tomee.version>
-                <openejb-core.version>4.6.0</openejb-core.version>
+                <tomee-plugin.version>1.7.1</tomee-plugin.version>
+                <tomee.version>1.7.1</tomee.version>
+                <openejb-core.version>4.7.1</openejb-core.version>
                 <antlr.version>2.7.7</antlr.version>
                 <dom4j.version>1.6.1</dom4j.version>
-                <hibernate-commons-annotations.version>4.0.2.Final</hibernate-commons-annotations.version>
-                <hibernate-entitymanager.version>4.2.8.Final</hibernate-entitymanager.version>
+                <hibernate-commons-annotations.version>4.0.5.Final</hibernate-commons-annotations.version>
+                <hibernate-entitymanager.version>4.2.15.Final</hibernate-entitymanager.version>
                 <hibernate-jpa-2.0.version>1.0.1.Final</hibernate-jpa-2.0.version>
                 <hibernate-jpa-2.1.version>000</hibernate-jpa-2.1.version>
                 <hibernate-jpamodelgen.version>1.3.0.Final</hibernate-jpamodelgen.version>
-                <hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
+                <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
                 <jandex.version>000</jandex.version>
                 <javassist.version>3.18.1-GA</javassist.version>
                 <jboss-logging.version>3.1.0.GA</jboss-logging.version>
@@ -1018,7 +1015,6 @@
                     <plugin>
                         <groupId>org.bsc.maven</groupId>
                         <artifactId>maven-processor-plugin</artifactId>
-                        <version>2.2.3</version>
                         <executions>
                             <execution>
                                 <id>process</id>
@@ -1055,7 +1051,7 @@
             <properties>
                 <skip.unit.tests>true</skip.unit.tests>
                 <skip.integration.tests>true</skip.integration.tests>
-                <hibernate-jpamodelgen.version>1.3.0.Final</hibernate-jpamodelgen.version>
+                <hibernate-jpamodelgen.version>4.3.6.Final</hibernate-jpamodelgen.version>
             </properties>
         </profile>
         <profile>
@@ -1078,7 +1074,6 @@
                     <plugin>
                         <groupId>org.bsc.maven</groupId>
                         <artifactId>maven-processor-plugin</artifactId>
-                        <version>2.2.3</version>
                         <executions>
                             <execution>
                                 <id>process</id>
@@ -1111,7 +1106,7 @@
             <properties>
                 <skip.unit.tests>true</skip.unit.tests>
                 <skip.integration.tests>true</skip.integration.tests>
-                <hibernate-jpamodelgen.version>4.3.1.Final</hibernate-jpamodelgen.version>
+                <hibernate-jpamodelgen.version>4.3.6.Final</hibernate-jpamodelgen.version>
             </properties>
         </profile>
     </profiles>
@@ -1124,7 +1119,7 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <slf4j.version>1.7.7</slf4j.version>
         <logback.version>1.1.2</logback.version>
-        <h2.version>1.4.181</h2.version>
+        <h2.version>1.4.182</h2.version>
         <myfaces.version>2.1.16</myfaces.version>
     </properties>
 
