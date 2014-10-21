@@ -4,7 +4,10 @@ import be.crydust.guestbooktwo.ejb.PostBoundary;
 import be.crydust.guestbooktwo.entities.Post;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -15,7 +18,7 @@ import javax.validation.constraints.Size;
  * @author kristof
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class PostBacking implements Serializable {
 
     private static final long serialVersionUID = 42L;

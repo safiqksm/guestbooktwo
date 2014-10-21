@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:metadata>
+        <f:viewParam name="post" value="#{updateFlowBacking.currentPost}" converter="#{postConverter}" />
+        <f:event type="preRenderView" listener="#{updateFlowBacking.init()}" />
+    </f:metadata>
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Guestbook update post with flow (jsf)</title>
+    </h:head>
+    <h:body>
+        <h1>Guestbook update post with flow (jsf)</h1>
+        <p><code>jsf/updateflow/step_1.xhtml</code> backed by 
+            <code>UpdateFlowBacking.java</code> bean</p>
+
+        <h:form id="form">
+            <p>
+                <h:outputLabel value="Author:" for="author" /><br />
+                <h:inputText id="author" value="#{updateFlowBacking.currentPost.author}" label="author" /><br />
+                <h:message for="author" />
+            </p>
+            <p>
+                Message:<br />
+                #{updateFlowBacking.currentPost.message}
+            </p>
+            <p>
+                <h:commandButton action="step_2" value="Step 2: edit the message" />
+            </p>
+            <p><b>Step 1: edit the author</b>
+            | <h:commandButton action="step_2" value="Step 2: edit the message" />
+            | <h:commandButton action="step_3" value="Step 3: confirm" />
+            | <h:link outcome="index" value="Cancel" /></p>
+        </h:form>
+    </h:body>
+</html>

@@ -24,7 +24,7 @@
 
         <h:form id="form">
             <h:messages globalOnly="true" />
-            
+
             <p>
                 <h:outputLabel value="Author:" for="author" /><br />
                 <h:inputText id="author" value="#{postBacking.currentPost.author}" label="author" /><br />
@@ -71,6 +71,9 @@
                     <h:link outcome="update" value="Update post" includeViewParams="true">
                         <f:param name="post" value="#{post.id}" />
                     </h:link>
+                    |
+                    <h:commandLink action="updateFlow" value="Update post with flow" />
+                    <!--<f:param name="post" value="#{post.id}" />-->
                 </h:column>
             </h:dataTable>
 
