@@ -1,11 +1,6 @@
 package be.crydust.guestbooktwo.web;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,9 +34,6 @@ public class RequireJsServlet extends HttpServlet {
         response.setHeader("Cache-Control", "max-age=" + maxAge);
 
         response.getWriter().print(RequireJS.getSetupJavaScript(request.getContextPath() + "/webjars/"));
-        response.getWriter().print("/*");
-        response.getWriter().print(RequireJS.getSetupJson(request.getContextPath() + "/webjars/"));
-        response.getWriter().print("*/");
     }
 
 }

@@ -1,4 +1,4 @@
-require(['jquery', './vanilla'], function (jQuery, vanilla) {
+require(['json3', 'jquery', './vanilla', 'requirejs-domready'], function (JSON, jQuery, vanilla) {
     function log(message) {
         if (message !== null && typeof message === 'string') {
             if (message.charAt(0) === '+') {

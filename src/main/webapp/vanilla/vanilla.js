@@ -1,10 +1,10 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define([], factory);
+        define(['json3'], factory);
     } else {
-        root.vanilla = factory(root.b);
+        root.vanilla = factory(root.JSON);
     }
-}(this, function () {
+}(this, function (JSON) {
     var exports = {};
     // cross browser XMLHttpRequest
     var createXMLHttpRequest = function () {
