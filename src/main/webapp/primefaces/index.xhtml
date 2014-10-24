@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <f:metadata>
         <f:event type="preRenderView" listener="#{postBacking.init()}" />
     </f:metadata>
@@ -23,7 +24,7 @@
 
         <h:form id="form">
             <p:messages globalOnly="true" />
-            
+
             <p>
                 <p:outputLabel value="Author:" for="author" /><br />
                 <p:inputText id="author" value="#{postBacking.currentPost.author}" label="author" /><br />
@@ -67,9 +68,12 @@
                 <p:column>
                     <f:facet name="header">Action</f:facet>
                     <p:commandButton action="#{postBacking.delete(post.id)}"
+                                     id="deletePostByIdButton"
                                      value="Delete post"
                                      update="dataTable" />
+                    <ui:remove>
                     <!-- o:param name="post" value="#{post}" converter="#{postConverter}" -->
+                    </ui:remove>
                     <h:link outcome="update" value="Update post" includeViewParams="true">
                         <f:param name="post" value="#{post.id}" />
                     </h:link>
