@@ -1133,11 +1133,25 @@
                     <artifactId>jackson-databind</artifactId>
                     <scope>provided</scope>
                 </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jul-to-slf4j</artifactId>
+                    <scope>provided</scope>
+                </dependency>
             </dependencies>
             <build>
                 <resources>
                     <resource>
                         <directory>${project.basedir}/src/main/resources</directory>
+                        <excludes>
+                            <exclude>jul.properties</exclude>
+                            <exclude>logback.xml</exclude>
+                        </excludes>
                     </resource>
                     <resource>
                         <directory>${project.basedir}/src/main/jboss-resources</directory>
@@ -1195,7 +1209,6 @@
                 </plugins>
             </build>
             <properties>
-                <skip.unit.tests>true</skip.unit.tests>
                 <skip.integration.tests>true</skip.integration.tests>
                 <hibernate-jpamodelgen.version>4.3.6.Final</hibernate-jpamodelgen.version>
             </properties>
