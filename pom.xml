@@ -1059,8 +1059,71 @@
         </profile>
         <profile>
             <id>openshift</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss</groupId>
+                    <artifactId>jboss-vfs</artifactId>
+                    <version>3.1.0.Final</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                    <artifactId>jackson-jaxrs-json-provider</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jul-to-slf4j</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
             <build>
+                <resources>
+                    <resource>
+                        <directory>${project.basedir}/src/main/resources</directory>
+                        <excludes>
+                            <exclude>jul.properties</exclude>
+                            <exclude>logback.xml</exclude>
+                        </excludes>
+                    </resource>
+                    <resource>
+                        <directory>${project.basedir}/src/main/jboss-resources</directory>
+                    </resource>
+                </resources>
                 <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${project.basedir}/src/main/jboss-java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.bsc.maven</groupId>
                         <artifactId>maven-processor-plugin</artifactId>
@@ -1103,6 +1166,7 @@
                 <hibernate-jpamodelgen.version>4.3.6.Final</hibernate-jpamodelgen.version>
             </properties>
         </profile>
+
         <profile>
             <id>wildfly8</id>
             <repositories>
