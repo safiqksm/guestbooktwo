@@ -19,7 +19,12 @@ public class ApplicationConfig extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
-        addRestResourceClasses(resources);
+        
+        resources.add(be.crydust.guestbooktwo.rest.ChildFacadeREST.class);
+        resources.add(be.crydust.guestbooktwo.rest.HelloWorld.class);
+        resources.add(be.crydust.guestbooktwo.rest.ParentFacadeREST.class);
+        resources.add(be.crydust.guestbooktwo.rest.PostFacadeREST.class);
+//        addRestResourceClasses(resources);
         return resources;
     }
 
